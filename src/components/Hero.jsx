@@ -26,7 +26,7 @@ const Hero = () => {
                             Aspiring Data Analyst · Education & E-commerce Enthusiast
                         </p>
                         <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-                            I use data and systems thinking to solve real problems in education and online retail.
+                            I use data and systems thinking to solve real problems and online retail.
                         </p>
                     </motion.div>
 
@@ -57,7 +57,7 @@ const Hero = () => {
                                 <span>Open to Work</span>
                             </div>
                             <span className="hidden sm:inline">•</span>
-                            <span>Yogyakarta, Indonesia</span>
+                            <span>Bogor, Indonesia</span>
                         </div>
 
                         <div className="flex items-center gap-6">
