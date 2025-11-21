@@ -1,16 +1,91 @@
-# React + Vite
+# Personal Portfolio — Muhammad Azahrul Ramadhan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the source code of my personal portfolio website — a clean, modern, single-page interface designed to showcase my background, skills, and projects as an **Aspiring Data Analyst** with experience in **education**, **e-commerce**, and **entrepreneurship**.
 
-Currently, two official plugins are available:
+The website is lightweight, mobile-friendly, and links each project directly to its GitHub repository.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🔗 Live Website
+**[Visit Portfolio](#)**  
+*(https://azahrul-portofolio.vercel.app/)*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🎯 Purpose
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The goal of this website is to highlight:
+- My transition from Math Education into Data Analytics  
+- Hands-on projects (Python, SQL, analytics workflows, business operations)  
+- Real experience building operational systems in e-commerce  
+- A simple and easy way for recruiters or collaborators to explore my work
+
+---
+
+## 📌 Features
+
+- ⚡ **Fast & lightweight**
+- 🖥️ **Modern one-page design**
+- 📱 **Fully responsive for mobile and desktop**
+- 🔗 **Direct GitHub links** for every portfolio project
+- 📄 **Downloadable CV button**
+- 🎨 Clean typography & color palette
+- 🔍 Smooth scrolling between sections
+
+---
+
+## 🧩 Sections Overview
+
+The website includes:
+
+1. **Hero Section**  
+   - Name, role, CTA buttons
+
+2. **About Me**  
+   - Short introduction, background, and current focus
+
+3. **Skills**  
+   - Grouped into Data, Tools, and Business domains
+
+4. **Projects**  
+   - Cards with descriptions + GitHub links
+
+5. **Experience**  
+   - A short timeline of roles and responsibilities
+
+6. **Contact**  
+   - Email + social links (GitHub, LinkedIn, etc.)
+
+---
+
+## 🗂️ Project Structure
+
+```
+
+/
+├── index.html         # Main portfolio page
+├── assets/
+│   ├── images/        # Logos, project previews, profile photos
+│   └── icons/         # Social/media icons
+├── css/
+│   └── style.css      # Website styling
+├── js/
+│   └── script.js      # Small scripts (scrolling, animations)
+└── README.md
+
+```
+## 👤 About the Author
+
+**Muhammad Azahrul Ramadhan**  
+Aspiring Data Analyst · Education & E-commerce Enthusiast  
+📍 Jakarta, Indonesia
+
+- GitHub: https://github.com/azahrulsmavo-design  
+- LinkedIn: https://linkedin.com/in/muhammad-azahrul-ramadhan-9728bb252/  
+- Email: **azahrulsmavo@gmail.com**
+
+---
+
+## ⭐ Support
+
+If this repo helps or inspires you, consider giving it a **star (⭐)**!
