@@ -5,28 +5,20 @@ import { Award, ExternalLink, Calendar } from 'lucide-react';
 const Certifications = () => {
     const certifications = [
         {
-            title: "Google Data Analytics Professional Certificate",
-            issuer: "Coursera",
+            title: "Google Analytics Certification",
+            issuer: "SkillsUp",
             date: "2024",
-            description: "Complete data analytics training covering SQL, R, Tableau, and data cleaning/visualization.",
-            link: "https://coursera.org",
-            color: "border-yellow-500"
-        },
-        {
-            title: "SQL for Data Science",
-            issuer: "University of California, Davis",
-            date: "2023",
-            description: "In-depth course on SQL fundamentals, distributed computing, and querying large datasets.",
-            link: "https://coursera.org",
+            description: "Completed a data analytics certification focused on fundamentals of web analytics, tracking, interpreting traffic, behavior, conversion metrics, building dashboards, and funnel analysis.",
+            link: "#",
             color: "border-blue-500"
         },
         {
-            title: "Machine Learning Specialization",
-            issuer: "DeepLearning.AI",
-            date: "2024",
-            description: "Foundational machine learning concepts including supervised and unsupervised learning.",
-            link: "https://coursera.org",
-            color: "border-red-500"
+            title: "Power BI for Beginners",
+            issuer: "SimpleLearn Technologies",
+            date: "Nov 2025",
+            description: "Foundational certification covering data import/transformation with Power Query, data modeling, interactive dashboard creation, and introductory DAX calculations.",
+            link: "#", // User mentioned "Includes 'View Credential' link" but didn't provide URL, using placeholder or maybe I should check if they provided a link in the prompt? They provided Credential ID: 9330500. I'll use a placeholder for now as no URL was given.
+            color: "border-yellow-500"
         }
     ];
 

@@ -48,10 +48,26 @@ const Experience = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
-                                className="relative opacity-50"
+                                className="relative"
                             >
-                                <span className="absolute -left-[41px] md:-left-[57px] top-2 w-4 h-4 bg-slate-700 rounded-full border-2 border-slate-900" />
-                                <p className="text-slate-500 italic">More to come...</p>
+                                <span className="absolute -left-[41px] md:-left-[57px] top-0 w-6 h-6 bg-green-600 rounded-full border-4 border-slate-900 flex items-center justify-center">
+                                    <Briefcase size={12} className="text-white" />
+                                </span>
+
+                                <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-green-500/30 transition-colors">
+                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
+                                        <h3 className="text-xl font-bold text-white">Volunteer Tutor — Marginalized School Program</h3>
+                                        <span className="text-green-400 font-medium bg-green-500/10 px-3 py-1 rounded-full text-sm w-fit">2022 – 2023</span>
+                                    </div>
+                                    <h4 className="text-lg text-slate-300 mb-4">Mathematics Tutor</h4>
+
+                                    <ul className="space-y-2 text-slate-400 list-disc list-inside">
+                                        <li>Provided mathematics tutoring for students from underserved school communities.</li>
+                                        <li>Developed simplified learning materials tailored to student needs.</li>
+                                        <li>Supported confidence-building and learning motivation through a personalized approach.</li>
+                                        <li>Collaborated with volunteer teams to review student progress.</li>
+                                    </ul>
+                                </div>
                             </motion.div>
                         </div>
                     </div>

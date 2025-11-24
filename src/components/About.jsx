@@ -7,12 +7,12 @@ const About = () => {
         {
             icon: <BookOpen className="w-6 h-6 text-blue-400" />,
             title: "Background",
-            description: "B.Sc. in Mathematics Education (UNY)"
+            description: "B.Ed. in Mathematics Education (UNY)"
         },
         {
             icon: <TrendingUp className="w-6 h-6 text-green-400" />,
             title: "Focus",
-            description: "Data analysis, business operations, and education"
+            description: "Data analysis and business operations"
         },
         {
             icon: <Code className="w-6 h-6 text-purple-400" />,

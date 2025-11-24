@@ -5,6 +5,13 @@ import { Github, ExternalLink } from 'lucide-react';
 const Projects = () => {
     const projects = [
         {
+            title: "AWING Body Repair & Cat",
+            description: "Official landing page for a body repair shop in Depok. Features a modern premium design, WhatsApp conversion focus, and local SEO optimization.",
+            tech: ["Next.js 16", "React 19", "Tailwind CSS 4", "Framer Motion"],
+            github: "https://github.com/azahrulsmavo-design/awing-body-repair",
+            color: "border-blue-500"
+        },
+        {
             title: "Road Traffic Analysis",
             description: "Exploratory data analysis on a road traffic dataset to understand the relationship between occupancy and speed across time.",
             tech: ["Python", "pandas", "matplotlib", "seaborn"],
