@@ -1,69 +1,64 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, TrendingUp, Code } from 'lucide-react';
+import TetrisSection from './TetrisSection';
+import { useTetrisTheme } from '../utils/themeUtils';
 
 const About = () => {
-    const highlights = [
-        {
-            icon: <BookOpen className="w-6 h-6 text-blue-400" />,
-            title: "Background",
-            description: "B.Ed. in Mathematics Education (UNY)"
-        },
-        {
-            icon: <TrendingUp className="w-6 h-6 text-green-400" />,
-            title: "Focus",
-            description: "Data analysis and business operations"
-        },
-        {
-            icon: <Code className="w-6 h-6 text-purple-400" />,
-            title: "Currently",
-            description: "Building portfolio projects and preparing for data roles"
-        }
-    ];
+    const theme = useTetrisTheme();
 
     return (
-        <section id="about" className="section-container">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-            >
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">About Me</h2>
+        <TetrisSection
+            id="about"
+            title="About Me"
+            subtitle="Background, focus, and what I'm working on."
+            theme={theme}
+        >
+            <div className={`space-y-6 text-sm sm:text-base ${theme.textSecondary}`}>
+                <p>
+                    I’m a Math Education graduate who fell in love with data and systems.
+                    Over the last few years, I’ve been building and running Kevin Book
+                    Store, an education-focused online business, while learning data
+                    analytics and machine learning.
+                </p>
+                <p>
+                    I enjoy turning messy, real-world data into clear insights and simple
+                    tools that people actually use. My background in education helps me
+                    communicate complex findings effectively.
+                </p>
 
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div className="space-y-6 text-slate-300 text-lg leading-relaxed">
-                        <p>
-                            I’m a Math Education graduate who fell in love with data and systems. Over the last few years, I’ve been building and running Kevin Book Store, an education-focused online business, while learning data analytics and machine learning.
-                        </p>
-                        <p>
-                            I enjoy turning messy, real-world data into clear insights and simple tools that people actually use. My background in education helps me communicate complex findings effectively.
-                        </p>
-                    </div>
-
-                    <div className="grid gap-4">
-                        {highlights.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, x: 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                className="bg-slate-800/50 p-4 rounded-xl border border-slate-700 flex items-center gap-4 hover:border-blue-500/30 transition-colors"
-                            >
-                                <div className="p-3 bg-slate-900 rounded-lg">
-                                    {item.icon}
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-white">{item.title}</h3>
-                                    <p className="text-slate-400 text-sm">{item.description}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                <div className="grid sm:grid-cols-3 gap-4 text-xs sm:text-sm font-mono uppercase tracking-[0.12em]">
+                    {[
+                        {
+                            label: 'Background',
+                            value: 'B.Ed. in Mathematics Education (UNY)',
+                        },
+                        {
+                            label: 'Focus',
+                            value: 'Data analysis and business operations',
+                        },
+                        {
+                            label: 'Currently',
+                            value: 'Building portfolio projects & prep for data roles',
+                        },
+                    ].map((item) => (
+                        <motion.div
+                            key={item.label}
+                            whileHover={{ translateY: -4, rotateX: -4, rotateY: 4 }}
+                            transition={{
+                                type: 'spring',
+                                stiffness: 230,
+                                damping: 18,
+                                mass: 0.6,
+                            }}
+                            className={`border-[3px] p-3 ${theme.subCardBg} ${theme.subCardBorder}`}
+                        >
+                            <div className="opacity-70 mb-1">{item.label}</div>
+                            <div className="font-semibold">{item.value}</div>
+                        </motion.div>
+                    ))}
                 </div>
-            </motion.div>
-        </section>
+            </div>
+        </TetrisSection>
     );
 };
 

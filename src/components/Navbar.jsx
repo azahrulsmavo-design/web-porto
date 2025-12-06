@@ -1,92 +1,114 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { Moon, Sun, Menu, X } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { useTetrisTheme } from '../utils/themeUtils';
+
+const navLinks = [
+    { href: '#home', label: 'Home' },
+    { href: '#about', label: 'About' },
+    { href: '#skills', label: 'Skills' },
+    { href: '#projects', label: 'Projects' },
+    { href: '#experience', label: 'Experience' },
+    { href: '#certifications', label: 'Certifications' },
+    { href: '#contact', label: 'Contact' },
+];
 
 const Navbar = () => {
+    const { toggleTheme } = useTheme();
+    const theme = useTetrisTheme();
     const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const navLinks = [
-        { name: 'Home', href: '#home' },
-        { name: 'About', href: '#about' },
-        { name: 'Skills', href: '#skills' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Experience', href: '#experience' },
-        { name: 'Certifications', href: '#certifications' },
-        { name: 'Contact', href: '#contact' },
-    ];
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/90 backdrop-blur-md border-b border-slate-800 py-4' : 'bg-transparent py-6'
-            }`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between">
-                    <div className="flex-shrink-0">
-                        <a href="#home" className="flex items-center gap-2">
-                            <img src="/logo.jpg" alt="Azahrul Logo" className="h-10 w-auto rounded-full" />
-                        </a>
+        <header
+            className={`
+        fixed top-0 inset-x-0 z-50 border-b-[3px] px-4 sm:px-6 lg:px-8
+        ${theme.frameBg} ${theme.frameBorder}
+        backdrop-blur transition-colors duration-300
+      `}
+        >
+            <div className="max-w-6xl mx-auto flex items-center justify-between h-16 gap-4">
+                {/* Logo / Brand */}
+                <div className="flex items-center gap-3">
+                    <a href="#home" className={`
+            px-2 py-1 border-[3px] text-xs font-black uppercase tracking-[0.18em]
+            ${theme.frameBorder} ${theme.isDark ? 'text-lime-300' : 'text-slate-800'}
+            hover:scale-105 transition-transform
+          `}>
+                        Azahrul
+                    </a>
+                    <div className="hidden lg:flex flex-col text-[0.6rem] font-mono uppercase tracking-[0.22em] text-slate-400">
+                        <span>TETRIS-PORTFOLIO</span>
+                        <span>PLAYER 1: AZAHRUL</span>
                     </div>
+                </div>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-slate-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
+                {/* Desktop Nav */}
+                <div className="flex items-center gap-3">
+                    <nav className="hidden md:flex items-center gap-1 text-xs font-mono uppercase tracking-[0.1em]">
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                className={`
+                  px-3 py-2 rounded-sm transition-colors
+                  ${theme.isDark
+                                        ? 'text-slate-300 hover:text-lime-300 hover:bg-slate-800/50'
+                                        : 'text-slate-600 hover:text-emerald-700 hover:bg-slate-100'
+                                    }
+                `}
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </nav>
+
+                    <button
+                        type="button"
+                        onClick={toggleTheme}
+                        className={`
+              flex items-center gap-2 px-3 py-1.5 border-[2px] text-[0.7rem] font-semibold uppercase tracking-wider ml-2
+              ${theme.isDark
+                                ? 'border-yellow-500/50 bg-yellow-500/10 text-yellow-200 hover:bg-yellow-500/20'
+                                : 'border-slate-400 bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            }
+              rounded-sm transition-all
+            `}
+                    >
+                        {theme.isDark ? <Moon size={14} /> : <Sun size={14} />}
+                        <span className="hidden sm:inline">{theme.isDark ? 'Dark Mode' : 'Light Mode'}</span>
+                    </button>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="text-slate-300 hover:text-white p-2"
-                        >
-                            {isOpen ? <X size={24} /> : <Menu size={24} />}
-                        </button>
-                    </div>
+                    <button
+                        className="md:hidden p-2 text-slate-500"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
                 </div>
             </div>
 
             {/* Mobile Menu */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-slate-900 border-b border-slate-800"
-                    >
-                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className="text-slate-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium"
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </nav>
+            {isOpen && (
+                <div className={`md:hidden border-t ${theme.frameBorder} ${theme.frameBg}`}>
+                    <nav className="flex flex-col p-4 space-y-2 text-sm font-mono uppercase tracking-[0.1em]">
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setIsOpen(false)}
+                                className={`
+                  px-3 py-3 border border-transparent hover:border-current
+                  ${theme.textSecondary}
+                `}
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </nav>
+                </div>
+            )}
+        </header>
     );
 };
 

@@ -1,87 +1,108 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import TetrisSection from './TetrisSection';
+import { useTetrisTheme } from '../utils/themeUtils';
+
+const projects = [
+    {
+        title: 'AWING Body Repair & Cat',
+        description:
+            'Official landing page for a body repair shop in Depok. Features a modern premium design, WhatsApp conversion focus, and local SEO optimization.',
+        stack: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Framer Motion'],
+    },
+    {
+        title: 'Road Traffic Analysis',
+        description:
+            'Exploratory data analysis on a road traffic dataset to understand the relationship between occupancy and speed across time.',
+        stack: ['Python', 'pandas', 'matplotlib', 'seaborn'],
+    },
+    {
+        title: 'Internship Vacancy Intelligence',
+        description:
+            'Built a pipeline to fetch internship vacancies, clean and score them based on skills, and serve results via a simple web app.',
+        stack: ['Python', 'requests', 'pandas', 'Streamlit'],
+    },
+    {
+        title: 'Kevin Book Store Dashboard',
+        description:
+            'Combined Shopee and TikTok order exports into a unified dataset using PowerQuery, then created views for GMV, shipping status, and claims.',
+        stack: ['Excel', 'PowerQuery', 'Dashboarding'],
+    },
+];
 
 const Projects = () => {
-    const projects = [
-        {
-            title: "AWING Body Repair & Cat",
-            description: "Official landing page for a body repair shop in Depok. Features a modern premium design, WhatsApp conversion focus, and local SEO optimization.",
-            tech: ["Next.js 16", "React 19", "Tailwind CSS 4", "Framer Motion"],
-            github: "https://github.com/azahrulsmavo-design/awing-body-repair",
-            color: "border-blue-500"
-        },
-        {
-            title: "Road Traffic Analysis",
-            description: "Exploratory data analysis on a road traffic dataset to understand the relationship between occupancy and speed across time.",
-            tech: ["Python", "pandas", "matplotlib", "seaborn"],
-            github: "https://github.com/azahrulsmavo-design/road-traffic-analysis-pangyo",
-            color: "border-blue-500"
-        },
-        {
-            title: "Internship Vacancy Intelligence",
-            description: "Built a pipeline to fetch internship vacancies, clean and score them based on skills, and serve results via a simple web app.",
-            tech: ["Python", "requests", "pandas", "Streamlit"],
-            github: "https://github.com/azahrulsmavo-design/magang_intel",
-            color: "border-green-500"
-        },
-        {
-            title: "Kevin Book Store Dashboard",
-            description: "Combined Shopee and TikTok order exports into a unified dataset using PowerQuery, then created views for GMV, shipping status, and claims.",
-            tech: ["Excel", "PowerQuery", "Dashboarding"],
-            github: "https://github.com",
-            color: "border-purple-500"
-        }
-    ];
+    const theme = useTetrisTheme();
 
     return (
-        <section id="projects" className="section-container">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-            >
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">Featured Projects</h2>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projects.map((project, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 flex flex-col"
-                        >
-                            <div className="p-6 flex-1 flex flex-col">
-                                <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
-                                <p className="text-slate-400 mb-6 flex-1">{project.description}</p>
-
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {project.tech.map((tech, idx) => (
-                                        <span key={idx} className="px-3 py-1 bg-slate-900 text-blue-400 text-xs font-medium rounded-full border border-slate-700">
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                <a
-                                    href={project.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn-secondary w-full justify-center group"
-                                >
-                                    <Github size={18} />
-                                    <span>View on GitHub</span>
-                                    <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity ml-1" />
-                                </a>
+        <TetrisSection
+            id="projects"
+            title="Featured Projects"
+            subtitle="Small but real projects that connect data and business."
+            theme={theme}
+        >
+            <div className="grid md:grid-cols-2 gap-5">
+                {projects.map((project) => (
+                    <motion.div
+                        key={project.title}
+                        whileHover={{
+                            translateY: -6,
+                            rotateX: -5,
+                            rotateY: 6,
+                        }}
+                        transition={{
+                            type: 'spring',
+                            stiffness: 240,
+                            damping: 18,
+                            mass: 0.7,
+                        }}
+                        className={`
+              border-[3px] p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden
+              ${theme.subCardBg} ${theme.subCardBorder}
+            `}
+                    >
+                        <div className="pointer-events-none absolute inset-0 opacity-[0.14] bg-[radial-gradient(circle_at_top_left,_rgba(52,211,153,0.5),transparent_60%)]" />
+                        <div className="relative z-10">
+                            <h3
+                                className={`text-sm sm:text-base font-semibold mb-2 ${theme.pageText}`}
+                            >
+                                {project.title}
+                            </h3>
+                            <p className={`text-xs sm:text-sm mb-3 ${theme.textSecondary}`}>
+                                {project.description}
+                            </p>
+                            <div className="flex flex-wrap gap-1.5 mb-4">
+                                {project.stack.map((item) => (
+                                    <span
+                                        key={item}
+                                        className={`
+                      px-2 py-1 text-[0.65rem] rounded-sm border
+                      ${theme.chipBg} ${theme.chipText} border-slate-500/40
+                    `}
+                                    >
+                                        {item}
+                                    </span>
+                                ))}
                             </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </motion.div>
-        </section>
+                        </div>
+                        <div className="flex justify-end relative z-10">
+                            <a
+                                href="https://github.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`
+                  inline-flex items-center gap-1 text-[0.7rem] sm:text-xs font-mono uppercase tracking-[0.18em]
+                  ${theme.accent} hover:underline
+                `}
+                            >
+                                View on GitHub
+                                <ArrowUpRight size={14} />
+                            </a>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </TetrisSection>
     );
 };
 
