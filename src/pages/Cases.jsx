@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Button from '../components/Button';
 
 const cases = [
     {
@@ -60,24 +60,26 @@ const categories = ['All Projects', 'Web App', 'Data Analysis', 'Website'];
 
 const Cases = () => {
     const [activeCategory, setActiveCategory] = useState('All Projects');
-    const navigate = useNavigate();
+    // const navigate = useNavigate(); // Not needed if using Link/Button href
 
     const filteredCases = activeCategory === 'All Projects'
         ? cases
         : cases.filter(c => c.category === activeCategory);
 
     return (
-        <div className="bg-white min-h-screen text-slate-900">
+        <div className="bg-white min-h-screen text-slate-900 font-sans">
             <Navbar />
 
-            <section className="w-full py-32 px-8 lg:px-16 pt-40">
-                {/* Header & Filter */}
-                <div className="mb-20">
+            {/* Page Header */}
+            <section className="w-full pt-40 pb-20 px-8 lg:px-16">
+                <div className="mb-12">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
                         <h2 className="text-5xl md:text-7xl font-bold tracking-tight">Explore our projects</h2>
-                        <a href="mailto:contact@azahrul.com" className="hidden md:inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-full font-bold hover:bg-slate-800 transition-colors">
-                            GET IN TOUCH <ArrowUpRight size={20} />
-                        </a>
+                        <div>
+                            <Button href="mailto:contact@azahrul.com" variant="outline">
+                                GET IN TOUCH
+                            </Button>
+                        </div>
                     </div>
 
                     <div className="flex flex-wrap gap-8 border-b border-slate-200 pb-4">
@@ -96,80 +98,88 @@ const Cases = () => {
                         ))}
                     </div>
                 </div>
+            </section>
 
-                {/* Cases List */}
-                <div className="space-y-32">
-                    {filteredCases.map((project, index) => (
-                        <motion.div
-                            key={project.slug}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                            className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center group cursor-pointer"
-                            onClick={() => navigate(`/cases/${project.slug}`)}
-                        >
-                            {/* Left: Image Card */}
-                            <div className={`aspect-[4/3] rounded-[2rem] bg-gradient-to-br ${project.imageGradient} flex items-center justify-center relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500`}>
-                                {/* Placeholder content for image */}
+            {/* Sticky Scroll Showcase List */}
+            <div className="w-full">
+                {filteredCases.map((project, index) => (
+                    <section
+                        key={project.slug}
+                        className="relative min-h-screen flex flex-col lg:flex-row border-t border-slate-100"
+                    >
+                        {/* LEFT COLUMN: STICKY IMAGE */}
+                        {/* sticky top-0 ensures it stays in view while the right column scrolls */}
+                        <div className="w-full lg:w-1/2 h-[50vh] lg:h-screen sticky top-0 flex items-center justify-center p-8 lg:p-16 overflow-hidden bg-slate-50/50">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8 }}
+                                viewport={{ once: true }} // Or remove 'once' if you want it to animate every time
+                                className={`relative w-full aspect-[4/3] max-w-xl rounded-[2.5rem] bg-gradient-to-br ${project.imageGradient} flex items-center justify-center shadow-2xl overflow-hidden`}
+                            >
+                                {/* Decorative / Placeholder */}
                                 <div className="text-slate-900/10 text-9xl font-bold select-none">
                                     {project.category === 'Web App' ? '</>' : 'DATA'}
                                 </div>
 
-                                <div className="absolute bottom-8 left-8 right-8 bg-white/80 backdrop-blur-md p-6 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
-                                    <div className="font-bold text-slate-900 flex justify-between items-center">
-                                        View Case Study
-                                        <ArrowUpRight size={18} />
-                                    </div>
+                                {/* Case ID (Retro Style similar to example) */}
+                                <div className="absolute top-8 right-8 text-4xl font-mono font-bold text-slate-900/5">
+                                    0{index + 1}
                                 </div>
-                            </div>
+                            </motion.div>
+                        </div>
 
-                            {/* Right: Content */}
-                            <div className="flex flex-col justify-center">
+                        {/* RIGHT COLUMN: SCROLLABLE CONTENT */}
+                        <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 lg:p-24 min-h-screen bg-white">
+                            <div className="max-w-xl">
                                 {/* Tags */}
-                                <div className="flex flex-wrap gap-3 text-xs md:text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">
+                                <div className="flex flex-wrap gap-3 text-xs font-bold text-blue-600 uppercase tracking-widest mb-6">
                                     {project.tags.map(tag => (
                                         <span key={tag}>#{tag}</span>
                                     ))}
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-8 group-hover:text-blue-600 transition-colors">
+                                <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-8">
                                     {project.title}
                                 </h3>
 
-                                {/* Client Buttons */}
-                                <div className="flex gap-4 mb-12">
-                                    <span className="px-6 py-3 bg-slate-900 text-white text-xs font-bold uppercase tracking-widest rounded-lg">
-                                        {project.client}
-                                    </span>
-                                    <span className="px-6 py-3 bg-slate-100 text-slate-900 text-xs font-bold uppercase tracking-widest rounded-lg flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                                        {project.location}
-                                    </span>
-                                </div>
+                                {/* Description */}
+                                <p className="text-lg text-slate-600 leading-relaxed mb-10">
+                                    {project.desc}
+                                </p>
 
-                                {/* Tech & Timeline Grid */}
-                                <div className="grid grid-cols-2 gap-8 border-t border-slate-200 pt-8">
+                                {/* Meta Grid */}
+                                <div className="grid grid-cols-2 gap-8 border-t border-slate-200 py-8 mb-8">
                                     <div>
-                                        <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-3">Tech Stack</div>
-                                        <div className="text-slate-900 font-medium text-lg">
-                                            {project.tech.join(', ')}
-                                        </div>
+                                        <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-2">Client</div>
+                                        <div className="font-bold text-slate-900">{project.client}</div>
                                     </div>
                                     <div>
-                                        <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-3">Timeline</div>
-                                        <div className="text-slate-900 font-medium text-lg">
-                                            {project.timeline}
-                                        </div>
+                                        <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-2">Location</div>
+                                        <div className="font-bold text-slate-900">{project.location}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-2">Tech Stack</div>
+                                        <div className="font-bold text-slate-900">{project.tech.join(', ')}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-2">Timeline</div>
+                                        <div className="font-bold text-slate-900">{project.timeline}</div>
                                     </div>
                                 </div>
 
+                                {/* EXPLORE BUTTON */}
+                                <div>
+                                    <Button href={`/cases/${project.slug}`}>
+                                        EXPLORE
+                                    </Button>
+                                </div>
                             </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
+                        </div>
+                    </section>
+                ))}
+            </div>
 
             <Footer />
         </div>

@@ -4,6 +4,7 @@ import { Github, Linkedin, FileText, Mail, Database, ShoppingBag, BarChart2, Cod
 import AnimatedChart from './AnimatedChart';
 import TypingCode from './TypingCode';
 import AnimatedTable from './AnimatedTable';
+import Button from './Button';
 
 // Animation Utility: Scramble Text
 const ScrambleText = ({ text, className }) => {
@@ -70,12 +71,22 @@ const Hero = () => {
                         </p>
 
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-4">
-                            <span className="block text-slate-900">
+                            <motion.span
+                                className="block text-slate-900"
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            >
                                 Muhammad
-                            </span>
-                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-                                Azahrul
-                            </span>
+                            </motion.span>
+                            <motion.span
+                                className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500"
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                            >
+                                Azahrul R
+                            </motion.span>
                         </h1>
 
                         <div className="text-lg md:text-xl text-slate-600 mb-6 font-light max-w-lg leading-relaxed">
@@ -86,18 +97,12 @@ const Hero = () => {
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-start gap-3 mb-8">
-                            <a
-                                href="#projects"
-                                className="px-5 py-2.5 bg-slate-900 text-white font-bold text-sm rounded-full hover:scale-105 transition-transform shadow-lg"
-                            >
+                            <Button href="/cases">
                                 VIEW WORK
-                            </a>
-                            <a
-                                href="#contact"
-                                className="px-5 py-2.5 bg-transparent border border-slate-300 text-slate-900 rounded-full font-bold hover:bg-slate-100 hover:border-slate-400 transition-all duration-300 text-sm"
-                            >
+                            </Button>
+                            <Button href="#contact" variant="outline">
                                 CONTACT
-                            </a>
+                            </Button>
                         </div>
 
                         <div className="flex gap-5">

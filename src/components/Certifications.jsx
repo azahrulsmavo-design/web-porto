@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Award, Calendar } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Award } from 'lucide-react';
 import ScrambleText from './ScrambleText';
 
 const certifications = [
@@ -18,54 +18,64 @@ const certifications = [
     }
 ];
 
+const CertificationCard = ({ cert, index }) => {
+    return (
+        <div className="sticky top-0 h-screen w-full bg-white border-t border-slate-200 flex items-center justify-center overflow-hidden">
+            <div className="max-w-7xl w-full px-8 grid md:grid-cols-2 gap-16 items-center">
+                {/* Left: Checkered Flag / Badge Visual? keeping it simple text as per previous */}
+                <div>
+                    <div className="flex items-center gap-3 text-blue-600 mb-6 font-bold uppercase tracking-widest text-sm">
+                        <Award size={24} />
+                        Certification {index + 1}
+                    </div>
+
+                    <h3 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4 leading-tight">{cert.title}</h3>
+                    <div className="text-2xl text-slate-500 font-light">{cert.issuer}</div>
+                    <div className="mt-4 inline-block px-4 py-2 bg-slate-100 text-slate-900 text-xs font-bold uppercase tracking-widest rounded-lg">
+                        {cert.year}
+                    </div>
+                </div>
+
+                {/* Right: Description */}
+                <div className="bg-slate-50 p-10 rounded-3xl border border-slate-100 shadow-sm">
+                    <div className="text-slate-600 text-xl leading-relaxed font-light">
+                        {cert.desc}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const Certifications = () => {
     return (
-        <section id="certifications" className="w-full px-8 lg:px-16 py-24 bg-transparent text-slate-900 border-t border-slate-100">
-            {/* HEADER: Full Width - Top */}
-            <div className="mb-20 overflow-hidden">
-                <motion.h2
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="text-5xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight text-left"
-                >
-                    Certifications.
-                </motion.h2>
-                <div className="text-2xl md:text-3xl text-slate-400 font-light text-left">
-                    <ScrambleText text="Structured learning I've completed." delay={0.2} speed="fast" />
+        <section id="certifications" className="relative w-full bg-white">
+            {/* Header Section (Scrolls naturally) */}
+            <div className="w-full px-8 lg:px-16 py-24 bg-white">
+                <div className="max-w-7xl mx-auto">
+                    <motion.h2
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: false }}
+                        className="text-5xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight"
+                    >
+                        Certifications.
+                    </motion.h2>
+                    <div className="text-2xl md:text-3xl text-slate-400 font-light">
+                        <ScrambleText text="Structured learning I've completed." delay={0.2} speed="fast" />
+                    </div>
                 </div>
             </div>
 
-            <div className="space-y-16">
-                {certifications.map((cert, index) => (
-                    <motion.div
-                        key={cert.title}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        viewport={{ once: false, margin: "-50px" }}
-                        className="grid md:grid-cols-2 gap-8 items-start border-t border-slate-200 pt-10"
-                    >
-                        {/* Left: Certificate Title & Issuer */}
-                        <div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-2">{cert.title}</h3>
-                            <div className="text-xl text-blue-600 font-medium mb-4">{cert.issuer}</div>
-                            <div className="flex items-center gap-2 text-slate-400 text-sm tracking-widest uppercase font-bold">
-                                <Award size={16} />
-                                {cert.year}
-                            </div>
-                        </div>
-
-                        {/* Right: Description */}
-                        <div>
-                            <div className="text-slate-600 text-lg leading-relaxed">
-                                {cert.desc}
-                            </div>
-                        </div>
-                    </motion.div>
+            {/* Stacking Cards Container */}
+            <div className="w-full">
+                {certifications.map((cert, i) => (
+                    <CertificationCard key={i} index={i} cert={cert} />
                 ))}
             </div>
+
+            {/* Spacer/Transition to Next Section (Contact) */}
+            <div className="h-[20vh] bg-white" />
         </section>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Button from './Button';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -93,14 +94,13 @@ const Navbar = () => {
                 </div>
             </header>
 
-            <div className="fixed top-0 right-0 z-[101] p-4 px-8 pointer-events-none w-full flex justify-end">
+
+
+            <div className="fixed top-0 right-0 z-[101] p-0 pr-8 pt-2 pointer-events-none w-full flex justify-end">
                 <div className="pointer-events-auto flex items-center gap-4">
-                    <a
-                        href="mailto:contact@azahrul.com"
-                        className={`hidden lg:inline-flex bg-slate-900 text-white px-6 py-2 rounded-full font-bold shadow-xl transition-all duration-300 hover:scale-105 ${!isVisible ? 'translate-y-2' : ''}`}
-                    >
-                        HIRE ME
-                    </a>
+                    <div className={`hidden lg:block transition-all duration-300 ${!isVisible ? 'translate-y-2' : ''}`}>
+                        <Button href="#contact">HIRE ME</Button>
+                    </div>
 
                     <button
                         className={`lg:hidden pointer-events-auto p-2 rounded-full transition-all duration-300 ${!isVisible ? 'bg-white/90 shadow-lg' : ''}`}
