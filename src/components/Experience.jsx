@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
+import ScrambleText from './ScrambleText';
 
 const experiences = [
     {
@@ -35,33 +36,28 @@ const Experience = () => {
     return (
         <section id="experience" className="w-full px-8 lg:px-16 py-24 bg-transparent text-slate-900 border-t border-slate-100">
             {/* HEADER: Full Width - Top */}
-            <div className="mb-20">
+            <div className="mb-20 overflow-hidden">
                 <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                     className="text-5xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight text-left"
                 >
                     Experience.
                 </motion.h2>
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="text-2xl md:text-3xl text-slate-400 font-light text-left"
-                >
-                    My professional journey so far.
-                </motion.p>
+                <div className="text-2xl md:text-3xl text-slate-400 font-light text-left">
+                    <ScrambleText text="My professional journey so far." delay={0.2} speed="fast" />
+                </div>
             </div>
 
             <div className="space-y-16">
                 {experiences.map((exp, index) => (
                     <motion.div
                         key={exp.id}
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
+                        viewport={{ once: false, margin: "-50px" }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         className="grid md:grid-cols-2 gap-8 items-start border-t border-slate-200 pt-10"
                     >
@@ -77,9 +73,9 @@ const Experience = () => {
 
                         {/* Right: Description & Tasks */}
                         <div>
-                            <p className="text-slate-600 text-lg leading-relaxed mb-6">
+                            <div className="text-slate-600 text-lg leading-relaxed mb-6">
                                 {exp.description}
-                            </p>
+                            </div>
                             <ul className="space-y-2">
                                 {exp.tasks.map((task, i) => (
                                     <li key={i} className="flex items-start gap-3 text-slate-600">

@@ -1,99 +1,111 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Terminal } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import ScrambleText from './ScrambleText';
 
 const projects = [
     {
         title: 'AWING Body Repair & Cat',
-        description:
-            'Official landing page for a body repair shop in Depok. Features a modern premium design, WhatsApp conversion focus, and local SEO optimization.',
-        stack: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Framer Motion'],
+        desc: 'Official landing page for a body repair shop in Depok. Features a modern premium design, WhatsApp conversion focus, and local SEO optimization.',
+        tech: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Framer Motion'],
+        links: { live: '#', code: '#' },
+        type: 'bash'
     },
     {
         title: 'Road Traffic Analysis',
-        description:
-            'Exploratory data analysis on a road traffic dataset to understand the relationship between occupancy and speed across time.',
-        stack: ['Python', 'pandas', 'matplotlib', 'seaborn'],
+        desc: 'Exploratory data analysis on a road traffic dataset to understand the relationship between occupancy and speed across time.',
+        tech: ['Python', 'pandas', 'matplotlib', 'seaborn'],
+        links: { code: '#' },
+        type: 'bash'
     },
     {
         title: 'Internship Vacancy Intelligence',
-        description:
-            'Built a pipeline to fetch internship vacancies, clean and score them based on skills, and serve results via a simple web app.',
-        stack: ['Python', 'requests', 'pandas', 'Streamlit'],
+        desc: 'Built a pipeline to fetch internship vacancies, clean and score them based on skills, and serve results via a simple web app.',
+        tech: ['Python', 'requests', 'pandas', 'Streamlit'],
+        links: { code: '#' },
+        type: 'bash'
     },
     {
         title: 'Kevin Book Store Dashboard',
-        description:
-            'A dashboard for a local bookstore to visualize sales trends, inventory turnover, and customer preferences.',
-        stack: ['Power BI', 'SQL', 'Excel'],
+        desc: 'A dashboard for a local bookstore to visualize sales trends, inventory turnover, and customer preferences.',
+        tech: ['Power BI', 'SQL', 'Excel'],
+        links: { live: '#' },
+        type: 'bash'
     }
 ];
 
+const ProjectCard = ({ project, index }) => {
+    return (
+        <div className="sticky top-0 h-screen w-full bg-white border-t border-slate-200 flex items-center justify-center overflow-hidden">
+            <div className="max-w-7xl w-full px-8 grid md:grid-cols-2 gap-16 items-center">
+                {/* Left: Project Title & Type */}
+                <div>
+                    <div className="font-mono text-blue-600 text-sm mb-4 font-bold uppercase tracking-wider">
+                        &gt; {project.type}
+                    </div>
+                    <h3 className="text-5xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight">{project.title}</h3>
+
+                    <div className="flex gap-4 mt-8">
+                        {project.links.live && (
+                            <a href={project.links.live} className="px-8 py-4 bg-slate-900 text-white rounded-full font-bold hover:scale-105 transition-transform flex items-center gap-3">
+                                View Live <ArrowRight size={20} />
+                            </a>
+                        )}
+                        {project.links.code && (
+                            <a href={project.links.code} className="px-8 py-4 border border-slate-300 rounded-full font-bold text-slate-600 hover:bg-slate-100 transition-colors flex items-center gap-3">
+                                View Code <Github size={20} />
+                            </a>
+                        )}
+                    </div>
+                </div>
+
+                {/* Right: Description & Tech */}
+                <div className="bg-slate-50 p-10 rounded-3xl border border-slate-100 shadow-sm">
+                    <div className="text-slate-600 text-xl leading-relaxed mb-10 font-light">
+                        {project.desc}
+                    </div>
+                    <div className="mb-4 text-xs font-bold uppercase text-slate-400 tracking-widest">Technologies</div>
+                    <ul className="flex flex-wrap gap-3">
+                        {project.tech.map((tech) => (
+                            <li key={tech} className="px-4 py-2 bg-white text-blue-600 text-sm font-mono rounded-lg border border-blue-100 font-bold shadow-sm">
+                                {tech}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const Projects = () => {
     return (
-        <section id="projects" className="w-full bg-transparent min-h-screen relative px-8 lg:px-16 text-slate-900">
-            {/* Header - No Sticky, Split Layout */}
-            <div className="mb-16 border-b border-gray-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                <h2 className="text-4xl font-bold text-slate-900">Featured Projects</h2>
-                <p className="text-gray-500 max-w-md md:text-right text-lg">
-                    Small but real projects that connect data and business.
-                </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8 relative z-10">
-                {projects.map((project, index) => (
-                    <motion.div
-                        key={project.title}
+        <section id="projects" className="relative w-full bg-white">
+            {/* Sticky Header Block */}
+            <div className="w-full px-8 lg:px-16 py-24 bg-white">
+                <div className="max-w-7xl mx-auto">
+                    <motion.h2
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        className="glass-monitor flex flex-col h-full bg-slate-50 rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+                        viewport={{ once: false }}
+                        className="text-5xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight"
                     >
-                        {/* Monitor Header / Window Controls */}
-                        <div className="bg-gray-100 border-b border-gray-200 p-3 flex items-center justify-between">
-                            <div className="flex gap-1.5">
-                                <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                                <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                                <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                            </div>
-                            <div className="text-[10px] uppercase font-mono tracking-widest text-gray-400">bash</div>
-                        </div>
+                        Projects.
+                    </motion.h2>
+                    <div className="text-2xl md:text-3xl text-slate-400 font-light">
+                        <ScrambleText text="Applying skills to solve real problems." delay={0.2} speed="fast" />
+                    </div>
+                </div>
+            </div>
 
-                        <div className="p-8 flex flex-col flex-grow">
-                            <div className="mb-4">
-                                <h3 className="text-xl font-bold mb-3 text-slate-800 font-mono">
-                                    &gt; {project.title}
-                                </h3>
-                                <p className="text-gray-600 mb-6 leading-relaxed">
-                                    {project.description}
-                                </p>
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {project.stack.map((tech) => (
-                                        <span
-                                            key={tech}
-                                            className="px-3 py-1 bg-white text-blue-600 text-sm font-medium rounded-full border border-blue-100"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="mt-auto pt-6 border-t border-gray-200 flex justify-end">
-                                <a
-                                    href="https://github.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors uppercase tracking-wider font-mono"
-                                >
-                                    [ View Code ]
-                                    <ArrowUpRight size={16} />
-                                </a>
-                            </div>
-                        </div>
-                    </motion.div>
+            {/* Stacking Cards Container */}
+            <div className="w-full">
+                {projects.map((project, i) => (
+                    <ProjectCard key={i} index={i} project={project} />
                 ))}
             </div>
+
+            {/* The next section (Experience) will naturally flow after the last sticky card */}
         </section>
     );
 };
