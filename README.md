@@ -35,6 +35,16 @@ This project is built using modern web development technologies:
   - **Certifications**: Professional achievements and certificates.
   - **Contact**: Social links and email connection.
 
+## 📁 Selected Projects
+
+- **Web Portfolio** (React, Tailwind): Personal portfolio website built with modern web technologies.
+- **Antropics Interview** (Python): Technical interview project focusing on problem-solving and algorithms.
+- **Internship Intelligence** (Python, Jupyter): Data analysis of tech job vacancies to identify skill trends.
+- **Ivy Design System** (HTML, CSS): A responsive web implementation of the "Ivy" design system.
+- **Kevin Book Store** (TypeScript, React): Landing page and dashboard for a local bookstore.
+- **AWING Body Repair** (Next.js, Tailwind): Official landing page for a body repair shop.
+- **Road Traffic Analysis Pangyo** (Python, VISSIM): Data analysis of autonomous driving traffic dataset.
+
 ---
 
 ## 🗂️ Project Structure

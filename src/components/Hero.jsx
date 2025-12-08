@@ -9,7 +9,7 @@ import Button from './Button';
 // Animation Utility: Scramble Text
 const ScrambleText = ({ text, className }) => {
     const [display, setDisplay] = useState(text);
-    const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~';
+    const chars = 'abcdefghijklmnopqrstuvwxyz';
 
     useEffect(() => {
         let iterations = 0;
@@ -25,7 +25,7 @@ const ScrambleText = ({ text, className }) => {
             );
 
             if (iterations >= text.length) clearInterval(interval);
-            iterations += 1 / 3;
+            iterations += 1;
         }, 30);
         return () => clearInterval(interval);
     }, [text]);

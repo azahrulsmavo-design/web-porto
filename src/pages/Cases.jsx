@@ -7,26 +7,26 @@ import Button from '../components/Button';
 
 const cases = [
     {
-        slug: 'isora-governance',
-        title: 'Isora – Optimizing governance, risk & compliance',
-        client: 'SALTYCLOUD',
-        location: 'TEXAS, USA',
-        tags: ['UX AUDIT', 'PRODUCT REDESIGN', 'WEB DEVELOPMENT'],
-        desc: 'Official landing page for a body repair shop in Depok. Features a modern premium design, WhatsApp conversion focus, and local SEO optimization.',
-        tech: ['React', 'Python', 'AWS'],
-        timeline: '12 months, ongoing',
+        slug: 'web-porto',
+        title: 'Web Portfolio',
+        client: 'PERSONAL',
+        location: 'INDONESIA',
+        tags: ['REACT', 'TAILWIND', 'PORTFOLIO'],
+        desc: 'Personal portfolio website built with modern web technologies to showcase projects and skills.',
+        tech: ['JavaScript', 'React', 'Tailwind'],
+        timeline: 'Ongoing',
         imageGradient: 'from-blue-100 to-blue-50',
         category: 'Web App'
     },
     {
-        slug: 'road-traffic',
-        title: 'Road Traffic Analysis',
-        client: 'OPEN DATA',
+        slug: 'antropics-interview',
+        title: 'Antropics Interview',
+        client: 'PERSONAL',
         location: 'GLOBAL',
-        tags: ['DATA ANALYSIS', 'VISUALIZATION', 'PYTHON'],
-        desc: 'Exploratory data analysis on a road traffic dataset to understand the relationship between occupancy and speed across time.',
-        tech: ['Python', 'Pandas', 'Seaborn'],
-        timeline: '2 months',
+        tags: ['ALGORITHMS', 'PYTHON', 'PROBLEM SOLVING'],
+        desc: 'Technical interview project focusing on problem-solving and algorithms using Python.',
+        tech: ['Python'],
+        timeline: '1 week',
         imageGradient: 'from-emerald-100 to-emerald-50',
         category: 'Data Analysis'
     },
@@ -35,23 +35,59 @@ const cases = [
         title: 'Internship Intelligence',
         client: 'PERSONAL',
         location: 'INDONESIA',
-        tags: ['AUTOMATION', 'WEB APP', 'SCRAPING'],
-        desc: 'Built a pipeline to fetch internship vacancies, clean and score them based on skills, and serve results via a simple web app.',
-        tech: ['Python', 'Streamlit', 'Requests'],
+        tags: ['DATA ANALYSIS', 'ETL', 'API'],
+        desc: 'Data analysis of tech job vacancies to identify skill trends. Involves data fetching (API), ETL, and analysis using Python.',
+        tech: ['Python', 'Jupyter', 'Pandas'],
         timeline: '1 month',
         imageGradient: 'from-orange-100 to-orange-50',
+        category: 'Data Analysis'
+    },
+    {
+        slug: 'ivy-design-system',
+        title: 'Ivy Design System',
+        client: 'OPEN SOURCE',
+        location: 'GLOBAL',
+        tags: ['DESIGN SYSTEM', 'CSS', 'ANIMATION'],
+        desc: 'A responsive web implementation of the "Ivy" design system. Features offset-grid layouts, noise textures, and smooth spring physics animations.',
+        tech: ['HTML', 'CSS', 'JavaScript'],
+        timeline: '2 weeks',
+        imageGradient: 'from-purple-100 to-purple-50',
+        category: 'Website'
+    },
+    {
+        slug: 'kevin-book-store',
+        title: 'Kevin Book Store',
+        client: 'KEVIN BOOKS',
+        location: 'YOGYAKARTA',
+        tags: ['WEB APP', 'DASHBOARD', 'TYPESCRIPT'],
+        desc: 'Landing page and dashboard for a local bookstore to manage sales and inventory.',
+        tech: ['TypeScript', 'React'],
+        timeline: '1 month',
+        imageGradient: 'from-pink-100 to-pink-50',
         category: 'Web App'
     },
     {
-        slug: 'kevin-bookstore',
-        title: 'Kevin Book Store Dashboard',
-        client: 'KEVIN BOOKS',
-        location: 'YOGYAKARTA',
-        tags: ['BUSINESS INTELLIGENCE', 'DASHBOARD'],
-        desc: 'A dashboard for a local bookstore to visualize sales trends, inventory turnover, and customer preferences.',
-        tech: ['Power BI', 'SQL', 'Excel'],
-        timeline: '3 months',
-        imageGradient: 'from-purple-100 to-purple-50',
+        slug: 'awing-body-repair',
+        title: 'AWING Body Repair',
+        client: 'AWING',
+        location: 'DEPOK',
+        tags: ['LANDING PAGE', 'SEO', 'TYPESCRIPT'],
+        desc: 'Official landing page for AWING Body Repair & Cat. Features WhatsApp conversion focus and local SEO optimization.',
+        tech: ['TypeScript', 'Next.js', 'Tailwind'],
+        timeline: '2 weeks',
+        imageGradient: 'from-cyan-100 to-cyan-50',
+        category: 'Website'
+    },
+    {
+        slug: 'road-traffic-analysis',
+        title: 'Road Traffic Analysis Pangyo',
+        client: 'RESEARCH',
+        location: 'KOREA',
+        tags: ['DATA ANALYSIS', 'VISSIM', 'PYTHON'],
+        desc: 'Data analysis of IEEE Pangyo autonomous driving traffic dataset (VISSIM simulation).',
+        tech: ['Python', 'Pandas', 'Jupyter'],
+        timeline: '1 month',
+        imageGradient: 'from-indigo-100 to-indigo-50',
         category: 'Data Analysis'
     }
 ];
@@ -71,7 +107,7 @@ const Cases = () => {
             <Navbar />
 
             {/* Page Header */}
-            <section className="w-full pt-40 pb-20 px-8 lg:px-16">
+            <section className="w-full pt-24 pb-4 px-8 lg:px-16">
                 <div className="mb-12">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
                         <h2 className="text-5xl md:text-7xl font-bold tracking-tight">Explore our projects</h2>
