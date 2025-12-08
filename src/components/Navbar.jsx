@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,8 +44,11 @@ const Navbar = () => {
             >
                 <div className="bg-white/90 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.1)] w-full px-8 py-4 flex justify-between items-center">
                     {/* Logo */}
-                    <a href="#home" className="text-[1.5rem] font-bold text-[var(--color-domino-blue)] no-underline">
-                        Portfolio
+                    <a href="#home" className="flex items-center gap-3 no-underline">
+                        <img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full object-cover border-2 border-[var(--color-domino-blue)]" />
+                        <span className="text-[1.25rem] font-bold text-[var(--color-domino-blue)] hidden sm:block">
+                            Azahrul.
+                        </span>
                     </a>
 
                     {/* Desktop Menu */}
@@ -69,11 +72,6 @@ const Navbar = () => {
 
             {/* Persistent Button Layer (Fixed, never hides) */}
             <div className="fixed top-0 right-0 z-[101] p-4 px-8 pointer-events-none w-full flex justify-end">
-                {/* 
-                  Wrapper for button that catches pointer events. 
-                  Added a small transclucent bg only when navbar is hidden to ensure contrast? 
-                  User said: "biarkan stay".
-                */}
                 <div className="pointer-events-auto flex items-center gap-4">
                     {/* HIRE ME Button (Desktop) */}
                     <a
@@ -113,6 +111,11 @@ const Navbar = () => {
                                 {link.title}
                             </a>
                         ))}
+                        <div className="mt-4">
+                            <a href="#contact" className="btn btn-primary w-full text-center block" onClick={() => setIsMenuOpen(false)}>
+                                HIRE ME
+                            </a>
+                        </div>
                     </nav>
                 </div>
             )}

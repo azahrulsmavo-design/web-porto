@@ -24,23 +24,18 @@ const projects = [
     {
         title: 'Kevin Book Store Dashboard',
         description:
-            'Combined Shopee and TikTok order exports into a unified dataset using PowerQuery, then created views for GMV, shipping status, and claims.',
-        stack: ['Excel', 'PowerQuery', 'Dashboarding'],
-    },
+            'A dashboard for a local bookstore to visualize sales trends, inventory turnover, and customer preferences.',
+        stack: ['Power BI', 'SQL', 'Excel'],
+    }
 ];
 
 const Projects = () => {
     return (
-        <section id="projects" className="w-full bg-gray-50/50 min-h-screen relative px-8 lg:px-16">
-            {/* Sticky Header */}
-            <div className="sticky top-20 z-30 py-6 bg-gray-50/80 backdrop-blur-md border-b border-gray-200/50 mb-12">
-                <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-[var(--color-domino-blue)] rounded-lg text-white">
-                        <Terminal size={24} />
-                    </div>
-                    <h2 className="section-title mb-0">Featured Projects</h2>
-                </div>
-                <p className="section-subtitle mb-0">
+        <section id="projects" className="w-full bg-transparent min-h-screen relative px-8 lg:px-16 text-slate-900">
+            {/* Header - No Sticky, Split Layout */}
+            <div className="mb-16 border-b border-gray-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <h2 className="text-4xl font-bold text-slate-900">Featured Projects</h2>
+                <p className="text-gray-500 max-w-md md:text-right text-lg">
                     Small but real projects that connect data and business.
                 </p>
             </div>
@@ -53,7 +48,7 @@ const Projects = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                         viewport={{ once: true, margin: "-50px" }}
-                        className="glass-monitor flex flex-col h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+                        className="glass-monitor flex flex-col h-full bg-slate-50 rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
                     >
                         {/* Monitor Header / Window Controls */}
                         <div className="bg-gray-100 border-b border-gray-200 p-3 flex items-center justify-between">
@@ -67,7 +62,7 @@ const Projects = () => {
 
                         <div className="p-8 flex flex-col flex-grow">
                             <div className="mb-4">
-                                <h3 className="text-xl font-bold mb-3 text-[var(--color-domino-text-dark)] font-mono">
+                                <h3 className="text-xl font-bold mb-3 text-slate-800 font-mono">
                                     &gt; {project.title}
                                 </h3>
                                 <p className="text-gray-600 mb-6 leading-relaxed">
@@ -77,19 +72,19 @@ const Projects = () => {
                                     {project.stack.map((tech) => (
                                         <span
                                             key={tech}
-                                            className="px-3 py-1 bg-blue-50 text-[var(--color-domino-blue)] text-sm font-medium rounded-full border border-blue-100"
+                                            className="px-3 py-1 bg-white text-blue-600 text-sm font-medium rounded-full border border-blue-100"
                                         >
                                             {tech}
                                         </span>
                                     ))}
                                 </div>
                             </div>
-                            <div className="mt-auto pt-6 border-t border-gray-100 flex justify-end">
+                            <div className="mt-auto pt-6 border-t border-gray-200 flex justify-end">
                                 <a
                                     href="https://github.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-sm font-bold text-[var(--color-accent-purple)] hover:text-[var(--color-domino-dark-blue)] transition-colors uppercase tracking-wider font-mono"
+                                    className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors uppercase tracking-wider font-mono"
                                 >
                                     [ View Code ]
                                     <ArrowUpRight size={16} />

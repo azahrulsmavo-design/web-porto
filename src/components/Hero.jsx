@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { Github, Linkedin, FileText, Mail, Database, ShoppingBag, BarChart2, Code2, Search } from 'lucide-react';
+import AnimatedChart from './AnimatedChart';
+import TypingCode from './TypingCode';
+import AnimatedTable from './AnimatedTable';
 
 // Animation Utility: Scramble Text
 const ScrambleText = ({ text, className }) => {
@@ -29,161 +32,32 @@ const ScrambleText = ({ text, className }) => {
     return <span className={className}>{display}</span>;
 };
 
-// Animation Utility: Subtitle with Loading Pause
-const SteppedSubtitle = () => {
-    const [step, setStep] = useState(0); // 0: part1, 1: loading, 2: full
-
-    useEffect(() => {
-        const timer1 = setTimeout(() => setStep(1), 1500); // Wait after Part 1
-        const timer2 = setTimeout(() => setStep(2), 3000); // Finish loading after 1.5s
-        return () => {
-            clearTimeout(timer1);
-            clearTimeout(timer2);
-        };
-    }, []);
-
-    return (
-        <p className="text-xl sm:text-3xl text-blue-100 mb-8 font-light max-w-2xl leading-relaxed h-[3.5rem] flex items-center gap-2">
-            <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-            >
-                Aspiring Data Analyst
-            </motion.span>
-
-            {step === 1 && (
-                <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex gap-1 items-center bg-blue-500/20 px-2 py-0.5 rounded text-sm text-[var(--color-accent-purple)]"
-                >
-                    <span className="animate-bounce">.</span>
-                    <span className="animate-bounce delay-100">.</span>
-                    <span className="animate-bounce delay-200">.</span>
-                </motion.span>
-            )}
-
-            {step === 2 && (
-                <motion.span
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-2"
-                >
-                    <span className="text-gray-400">•</span>
-                    <span className="text-[var(--color-accent-purple)] font-semibold">
-                        Education & E-commerce Enthusiast
-                    </span>
-                </motion.span>
-            )}
-        </p>
-    );
-};
-
-const EnhancedWaves = () => {
-    return (
-        <div className="absolute right-[-10%] top-[-10%] w-[120%] h-[120%] pointer-events-none opacity-80 mix-blend-screen">
-            <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 1000 800"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-            >
-                <defs>
-                    <linearGradient id="neonGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0" />
-                        <stop offset="50%" stopColor="#d946ef" stopOpacity="1" />
-                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
-                    </linearGradient>
-                    <filter id="glow">
-                        <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-
-                {/* Big Bold Waves */}
-                <motion.path
-                    d="M-100,200 C200,400 500,0 800,200 S1200,600 1400,300"
-                    fill="none"
-                    stroke="url(#neonGradient2)"
-                    strokeWidth="4"
-                    filter="url(#glow)"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{ duration: 3, ease: "easeOut" }}
-                />
-                <motion.path
-                    d="M-100,350 C250,550 550,150 850,350 S1250,750 1450,450"
-                    fill="none"
-                    stroke="url(#neonGradient2)"
-                    strokeWidth="2"
-                    opacity="0.5"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{ duration: 4, ease: "easeOut", delay: 0.5 }}
-                />
-            </svg>
-        </div>
-    );
-};
-
-// Floating Icons Animation
-const FloatingIcons = () => {
-    const icons = [
-        { Icon: Database, color: "text-blue-400", x: 20, y: -20, delay: 0 },
-        { Icon: ShoppingBag, color: "text-orange-400", x: -30, y: 40, delay: 1 },
-        { Icon: BarChart2, color: "text-purple-400", x: 40, y: 60, delay: 2 },
-        { Icon: Code2, color: "text-gray-300", x: -20, y: -50, delay: 1.5 },
-        { Icon: Search, color: "text-green-400", x: 60, y: -30, delay: 0.5 },
-    ];
-
-    return (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {icons.map((item, index) => (
-                <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{
-                        opacity: 0.6,
-                        scale: 1,
-                        x: [item.x, item.x + 20, item.x],
-                        y: [item.y, item.y - 20, item.y],
-                    }}
-                    transition={{
-                        opacity: { duration: 1, delay: item.delay },
-                        scale: { duration: 1, delay: item.delay },
-                        x: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: item.delay },
-                        y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: item.delay }
-                    }}
-                    className={`absolute ${item.color} hidden lg:block`}
-                    style={{
-                        top: `${40 + (index * 15)}%`,
-                        left: `${50 + (index * 10)}%`, // Distribute roughly in right side
-                    }}
-                >
-                    <item.Icon size={40} className="drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" />
-                </motion.div>
-            ))}
-        </div>
-    );
-};
-
 const Hero = () => {
     return (
         <section
             id="home"
-            className="relative pt-24 pb-20 lg:pt-36 lg:pb-32 overflow-hidden bg-[var(--color-domino-dark-blue)] text-white min-h-[90vh] flex items-center"
+            className="relative pt-12 pb-12 lg:pt-20 lg:pb-20 overflow-hidden bg-slate-50 text-slate-900 min-h-[85vh] flex items-center"
         >
             {/* Background Elements */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(29,78,216,0.15),transparent_70%)]" />
-            <FloatingIcons />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(59,130,246,0.05),transparent_70%)]" />
 
-            <div className="w-full px-8 lg:px-16 relative z-10 grid lg:grid-cols-2 gap-8 items-center">
+            {/* Floating Background Icons (Subtle) */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-10">
+                {[Database, Code2, BarChart2].map((Icon, i) => (
+                    <motion.div
+                        key={i}
+                        initial={{ y: 0 }}
+                        animate={{ y: [0, -20, 0] }}
+                        transition={{ duration: 4, delay: i, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute text-blue-600"
+                        style={{ top: `${20 + i * 30}%`, left: `${10 + i * 40}%` }}
+                    >
+                        <Icon size={48} />
+                    </motion.div>
+                ))}
+            </div>
+
+            <div className="max-w-7xl mx-auto w-full px-6 lg:px-12 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 {/* Left Column: Text */}
                 <div className="text-left z-20">
                     <motion.div
@@ -191,39 +65,42 @@ const Hero = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        <p className="text-[var(--color-accent-orange)] font-mono tracking-widest uppercase mb-6 text-base sm:text-lg font-bold">
+                        <p className="text-blue-600 font-mono tracking-widest uppercase mb-3 text-xs md:text-sm font-bold">
                             // <ScrambleText text="Hello, I'm" />
                         </p>
-                        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold leading-[1.1] mb-8 tracking-tight">
-                            Muhammad <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
+
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-4">
+                            <span className="block text-slate-900">
+                                Muhammad
+                            </span>
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
                                 Azahrul
                             </span>
                         </h1>
 
-                        <SteppedSubtitle />
+                        <div className="text-lg md:text-xl text-slate-600 mb-6 font-light max-w-lg leading-relaxed">
+                            <p><ScrambleText text="Aspiring Data Analyst." className="font-medium text-slate-800" /></p>
+                            <p className="text-sm md:text-base text-slate-500 mt-2">
+                                <ScrambleText text="I use data and systems thinking to solve real problems in education and online retail." />
+                            </p>
+                        </div>
 
-                        <p className="text-lg text-blue-100/80 mb-10 max-w-xl leading-relaxed">
-                            I use data and systems thinking to solve real problems in education and online retail — turning raw numbers into decisions you can act on.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row items-start gap-5">
+                        <div className="flex flex-col sm:flex-row items-start gap-3 mb-8">
                             <a
                                 href="#projects"
-                                className="btn-accent px-10 py-4 text-lg rounded-md font-bold hover:-translate-y-1 transition-transform duration-300 shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+                                className="px-5 py-2.5 bg-slate-900 text-white font-bold text-sm rounded-full hover:scale-105 transition-transform shadow-lg"
                             >
-                                VIEW PROJECTS
+                                VIEW WORK
                             </a>
                             <a
-                                href="/cv.pdf"
-                                className="px-10 py-4 bg-transparent border border-white/30 text-white rounded-md font-bold hover:bg-white/10 hover:border-white transition-all duration-300 flex items-center justify-center gap-3"
+                                href="#contact"
+                                className="px-5 py-2.5 bg-transparent border border-slate-300 text-slate-900 rounded-full font-bold hover:bg-slate-100 hover:border-slate-400 transition-all duration-300 text-sm"
                             >
-                                <FileText size={20} />
-                                CV / RESUME
+                                CONTACT
                             </a>
                         </div>
 
-                        <div className="mt-16 flex gap-8">
+                        <div className="flex gap-5">
                             {[
                                 { icon: Github, href: "https://github.com" },
                                 { icon: Linkedin, href: "https://linkedin.com" },
@@ -234,39 +111,50 @@ const Hero = () => {
                                     href={item.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-blue-300/60 hover:text-[var(--color-accent-purple)] hover:scale-110 transition-all duration-300"
+                                    className="text-slate-400 hover:text-blue-600 hover:scale-110 transition-all duration-300"
                                 >
-                                    <item.icon size={32} />
+                                    <item.icon size={20} />
                                 </a>
                             ))}
                         </div>
                     </motion.div>
                 </div>
 
-                {/* Right Column: Visual */}
-                <div className="relative h-full min-h-[500px] flex items-center justify-center lg:justify-end">
-                    <EnhancedWaves />
+                {/* Right Column: Visual Composition */}
+                <div className="relative h-full min-h-[400px] flex items-center justify-center lg:justify-end perspective-1000 scale-90 lg:scale-100">
 
-                    {/* Floating Badge (optional "Striking" element) */}
+                    {/* 1. Animated Chart (Scatter Icon) - Top Right */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 1, duration: 1 }}
-                        className="absolute right-10 top-20 bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-2xl hidden lg:block"
+                        initial={{ opacity: 0, x: 50, rotateY: -10 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                        className="absolute top-10 right-0 z-20 hover:scale-105 transition-transform duration-500"
+                        style={{ transformStyle: 'preserve-3d' }}
                     >
-                        <div className="flex gap-4 items-center mb-2">
-                            <div className="w-3 h-3 rounded-full bg-red-500" />
-                            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                            <div className="w-3 h-3 rounded-full bg-green-500" />
-                        </div>
-                        <div className="font-mono text-xs text-blue-200 space-y-2">
-                            <p><span className="text-[var(--color-accent-purple)]">const</span> skills <span className="text-[var(--color-accent-orange)]">=</span> [</p>
-                            <p className="pl-4">'Data Analysis',</p>
-                            <p className="pl-4">'Business Intel',</p>
-                            <p className="pl-4">'Machine Learning'</p>
-                            <p>];</p>
-                        </div>
+                        <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-200 rounded-full blur-3xl opacity-50 animate-pulse" />
+                        <AnimatedChart />
                     </motion.div>
+
+                    {/* 2. Typing Code - Bottom Left (of container) */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -50, y: 50 }}
+                        animate={{ opacity: 1, x: -20, y: 40 }}
+                        transition={{ duration: 1, delay: 0.8 }}
+                        className="absolute bottom-10 left-0 z-10 hidden sm:block scale-90"
+                    >
+                        <TypingCode />
+                    </motion.div>
+
+                    {/* 3. New Table Component - Bottom Right / Floating */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8, y: 100 }}
+                        animate={{ opacity: 1, scale: 1, y: 60 }}
+                        transition={{ duration: 1, delay: 1.2 }}
+                        className="absolute bottom-32 right-10 z-30"
+                    >
+                        <AnimatedTable />
+                    </motion.div>
+
                 </div>
             </div>
         </section>
