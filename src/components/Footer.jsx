@@ -1,24 +1,21 @@
 import React from 'react';
-import { useTetrisTheme } from '../utils/themeUtils';
 
 const Footer = () => {
-    const theme = useTetrisTheme();
-
     return (
-        <footer className={`py-10 mt-auto ${theme.sectionBg} transition-colors duration-300`}>
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div
-                    className={`
-            border-t-[3px] pt-6 text-[0.7rem] sm:text-xs font-mono flex flex-col sm:flex-row items-center justify-between gap-4
-            ${theme.isDark ? 'border-slate-800 text-slate-500' : 'border-slate-300 text-slate-500'}
-          `}
-                >
-                    <span>
-                        © {new Date().getFullYear()} Muhammad Azahrul Ramadhan. All rights reserved.
-                    </span>
-                    <span className="uppercase tracking-[0.2em] animate-pulse">
-                        Insert coin to continue ▌
-                    </span>
+        <footer className="bg-[var(--color-domino-dark-blue)] text-white py-12 mt-auto">
+            <div className="w-full px-8 lg:px-16">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="text-center md:text-left">
+                        <h3 className="text-xl font-bold mb-2">Portfolio</h3>
+                        <p className="text-blue-200 text-sm">
+                            © {new Date().getFullYear()} Muhammad Azahrul Ramadhan. All rights reserved.
+                        </p>
+                    </div>
+
+                    <div className="flex gap-6">
+                        <a href="#" className="text-blue-200 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                        <a href="#" className="text-blue-200 hover:text-white transition-colors text-sm">Terms of Service</a>
+                    </div>
                 </div>
             </div>
         </footer>

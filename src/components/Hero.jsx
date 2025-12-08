@@ -1,362 +1,270 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Github, Linkedin, FileText, Mail } from 'lucide-react';
-import { useTetrisTheme } from '../utils/themeUtils';
-import FloatingBlock from './FloatingBlock';
+import React, { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { Github, Linkedin, FileText, Mail, Database, ShoppingBag, BarChart2, Code2, Search } from 'lucide-react';
+
+// Animation Utility: Scramble Text
+const ScrambleText = ({ text, className }) => {
+    const [display, setDisplay] = useState(text);
+    const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~';
+
+    useEffect(() => {
+        let iterations = 0;
+        const interval = setInterval(() => {
+            setDisplay(
+                text
+                    .split('')
+                    .map((char, index) => {
+                        if (index < iterations) return text[index];
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join('')
+            );
+
+            if (iterations >= text.length) clearInterval(interval);
+            iterations += 1 / 3;
+        }, 30);
+        return () => clearInterval(interval);
+    }, [text]);
+
+    return <span className={className}>{display}</span>;
+};
+
+// Animation Utility: Subtitle with Loading Pause
+const SteppedSubtitle = () => {
+    const [step, setStep] = useState(0); // 0: part1, 1: loading, 2: full
+
+    useEffect(() => {
+        const timer1 = setTimeout(() => setStep(1), 1500); // Wait after Part 1
+        const timer2 = setTimeout(() => setStep(2), 3000); // Finish loading after 1.5s
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        };
+    }, []);
+
+    return (
+        <p className="text-xl sm:text-3xl text-blue-100 mb-8 font-light max-w-2xl leading-relaxed h-[3.5rem] flex items-center gap-2">
+            <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+            >
+                Aspiring Data Analyst
+            </motion.span>
+
+            {step === 1 && (
+                <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex gap-1 items-center bg-blue-500/20 px-2 py-0.5 rounded text-sm text-[var(--color-accent-purple)]"
+                >
+                    <span className="animate-bounce">.</span>
+                    <span className="animate-bounce delay-100">.</span>
+                    <span className="animate-bounce delay-200">.</span>
+                </motion.span>
+            )}
+
+            {step === 2 && (
+                <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="flex items-center gap-2"
+                >
+                    <span className="text-gray-400">•</span>
+                    <span className="text-[var(--color-accent-purple)] font-semibold">
+                        Education & E-commerce Enthusiast
+                    </span>
+                </motion.span>
+            )}
+        </p>
+    );
+};
+
+const EnhancedWaves = () => {
+    return (
+        <div className="absolute right-[-10%] top-[-10%] w-[120%] h-[120%] pointer-events-none opacity-80 mix-blend-screen">
+            <svg
+                width="100%"
+                height="100%"
+                viewBox="0 0 1000 800"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+            >
+                <defs>
+                    <linearGradient id="neonGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0" />
+                        <stop offset="50%" stopColor="#d946ef" stopOpacity="1" />
+                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                {/* Big Bold Waves */}
+                <motion.path
+                    d="M-100,200 C200,400 500,0 800,200 S1200,600 1400,300"
+                    fill="none"
+                    stroke="url(#neonGradient2)"
+                    strokeWidth="4"
+                    filter="url(#glow)"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 3, ease: "easeOut" }}
+                />
+                <motion.path
+                    d="M-100,350 C250,550 550,150 850,350 S1250,750 1450,450"
+                    fill="none"
+                    stroke="url(#neonGradient2)"
+                    strokeWidth="2"
+                    opacity="0.5"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 4, ease: "easeOut", delay: 0.5 }}
+                />
+            </svg>
+        </div>
+    );
+};
+
+// Floating Icons Animation
+const FloatingIcons = () => {
+    const icons = [
+        { Icon: Database, color: "text-blue-400", x: 20, y: -20, delay: 0 },
+        { Icon: ShoppingBag, color: "text-orange-400", x: -30, y: 40, delay: 1 },
+        { Icon: BarChart2, color: "text-purple-400", x: 40, y: 60, delay: 2 },
+        { Icon: Code2, color: "text-gray-300", x: -20, y: -50, delay: 1.5 },
+        { Icon: Search, color: "text-green-400", x: 60, y: -30, delay: 0.5 },
+    ];
+
+    return (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            {icons.map((item, index) => (
+                <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{
+                        opacity: 0.6,
+                        scale: 1,
+                        x: [item.x, item.x + 20, item.x],
+                        y: [item.y, item.y - 20, item.y],
+                    }}
+                    transition={{
+                        opacity: { duration: 1, delay: item.delay },
+                        scale: { duration: 1, delay: item.delay },
+                        x: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: item.delay },
+                        y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: item.delay }
+                    }}
+                    className={`absolute ${item.color} hidden lg:block`}
+                    style={{
+                        top: `${40 + (index * 15)}%`,
+                        left: `${50 + (index * 10)}%`, // Distribute roughly in right side
+                    }}
+                >
+                    <item.Icon size={40} className="drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" />
+                </motion.div>
+            ))}
+        </div>
+    );
+};
 
 const Hero = () => {
-    const theme = useTetrisTheme();
-    const [cursor, setCursor] = useState({ x: 0.5, y: 0.5 });
-
-    const handleMouseMove = (e) => {
-        const { innerWidth, innerHeight } = window;
-        const x = e.clientX / innerWidth;
-        const y = e.clientY / innerHeight;
-        setCursor({ x, y });
-    };
-
     return (
         <section
             id="home"
-            onMouseMove={handleMouseMove}
-            className={`min-h-screen flex items-center justify-center relative overflow-hidden pt-28 sm:pt-32 ${theme.sectionBg}`}
+            className="relative pt-24 pb-20 lg:pt-36 lg:pb-32 overflow-hidden bg-[var(--color-domino-dark-blue)] text-white min-h-[90vh] flex items-center"
         >
-            {/* Global grid background */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div
-                    className="w-full h-full opacity-20"
-                    style={{
-                        backgroundImage:
-                            'linear-gradient(to right, rgba(148,163,184,0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,163,184,0.3) 1px, transparent 1px)',
-                        backgroundSize: '32px 32px',
-                    }}
-                />
-            </div>
+            {/* Background Elements */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(29,78,216,0.15),transparent_70%)]" />
+            <FloatingIcons />
 
-
-
-            {/* Floating Tetris blocks track cursor (behind hero frame) */}
-            <FloatingBlock
-                className="top-24 left-4 sm:left-10 grid grid-cols-2 z-10"
-                colors={['bg-cyan-400', 'bg-cyan-500', 'bg-cyan-400', 'bg-cyan-400']}
-                duration={8}
-                cursor={cursor}
-                parallax={60}
-            />
-            <FloatingBlock
-                className="bottom-32 right-4 sm:right-16 grid grid-cols-3 z-10"
-                colors={[
-                    'bg-purple-400',
-                    'bg-purple-500',
-                    'bg-purple-400',
-                    'bg-purple-500',
-                ]}
-                duration={7}
-                delay={1}
-                reverse
-                cursor={cursor}
-                parallax={70}
-            />
-            <FloatingBlock
-                className="top-1/2 -left-6 hidden md:block grid grid-cols-1 z-10"
-                colors={[
-                    'bg-amber-400',
-                    'bg-amber-400',
-                    'bg-amber-400',
-                    'bg-amber-500',
-                ]}
-                duration={10}
-                cursor={cursor}
-                parallax={50}
-            />
-
-            {/* Glow behind main frame */}
-            <div className="absolute -z-10 inset-0 flex items-center justify-center">
-                <div className="w-[420px] sm:w-[520px] h-[420px] sm:h-[520px] bg-emerald-400/10 blur-3xl rounded-full" />
-            </div>
-
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
-                <div
-                    style={{ perspective: 1500, transformStyle: 'preserve-3d' }}
-                    className="w-full"
-                >
+            <div className="w-full px-8 lg:px-16 relative z-10 grid lg:grid-cols-2 gap-8 items-center">
+                {/* Left Column: Text */}
+                <div className="text-left z-20">
                     <motion.div
-                        initial={{ opacity: 0, y: 30, rotateX: 8, rotateY: -8 }}
-                        animate={{ opacity: 1, y: 0, rotateX: 0, rotateY: 0 }}
-                        transition={{ duration: 0.7, ease: 'easeOut' }}
-                        className={`
-              rounded-2xl border-[4px] p-4 sm:p-8 lg:p-10 relative overflow-hidden
-              ${theme.frameBg} ${theme.frameBorder} ${theme.frameShadow}
-            `}
-                        style={{ transformStyle: 'preserve-3d' }}
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        {/* crt scanline + vignette */}
-                        <div className="pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-soft-light bg-[radial-gradient(circle_at_top,_rgba(148,163,184,0.3),transparent_55%)]" />
-                        <div className="pointer-events-none absolute inset-0 opacity-[0.22] mix-blend-soft-light bg-[linear-gradient(to_bottom,rgba(15,23,42,0.7),transparent_32%,transparent_70%,rgba(15,23,42,0.9))]" />
-                        <div className="pointer-events-none absolute inset-0 opacity-[0.22] mix-blend-soft-light bg-[linear-gradient(to_bottom,rgba(148,163,184,0.35)_1px,transparent_1px)] bg-[length:0.5px_3px]" />
+                        <p className="text-[var(--color-accent-orange)] font-mono tracking-widest uppercase mb-6 text-base sm:text-lg font-bold">
+                            // <ScrambleText text="Hello, I'm" />
+                        </p>
+                        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold leading-[1.1] mb-8 tracking-tight">
+                            Muhammad <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">
+                                Azahrul
+                            </span>
+                        </h1>
 
-                        {/* Top bar: game label */}
-                        <div className="flex items-center justify-between mb-6 text-xs sm:text-sm tracking-[0.25em] uppercase relative z-10">
-                            <div
-                                className={`${theme.accent} font-semibold flex items-center gap-2`}
+                        <SteppedSubtitle />
+
+                        <p className="text-lg text-blue-100/80 mb-10 max-w-xl leading-relaxed">
+                            I use data and systems thinking to solve real problems in education and online retail — turning raw numbers into decisions you can act on.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-start gap-5">
+                            <a
+                                href="#projects"
+                                className="btn-accent px-10 py-4 text-lg rounded-md font-bold hover:-translate-y-1 transition-transform duration-300 shadow-[0_0_20px_rgba(139,92,246,0.3)]"
                             >
-                                <span className="px-2 py-1 border border-current bg-slate-950/60">
-                                    TETRIS-PORTFOLIO
-                                </span>
-                                <span className="hidden sm:inline text-[0.65rem]">
-                                    PLAYER 1: AZAHRUL
-                                </span>
-                            </div>
-
-                            <div className="hidden sm:flex items-center gap-4 font-mono text-[0.65rem] text-slate-400 uppercase">
-                                <span>Hi-score: 002024</span>
-                                <span>Credit: 01</span>
-                            </div>
+                                VIEW PROJECTS
+                            </a>
+                            <a
+                                href="/cv.pdf"
+                                className="px-10 py-4 bg-transparent border border-white/30 text-white rounded-md font-bold hover:bg-white/10 hover:border-white transition-all duration-300 flex items-center justify-center gap-3"
+                            >
+                                <FileText size={20} />
+                                CV / RESUME
+                            </a>
                         </div>
 
-                        <div className="grid md:grid-cols-[3fr,1.4fr] gap-8 md:gap-10 items-start relative z-10">
-                            {/* Left: Text */}
-                            <div className="text-left">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 24 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5 }}
+                        <div className="mt-16 flex gap-8">
+                            {[
+                                { icon: Github, href: "https://github.com" },
+                                { icon: Linkedin, href: "https://linkedin.com" },
+                                { icon: Mail, href: "mailto:azahrulsmavo@gmail.com" }
+                            ].map((item, i) => (
+                                <a
+                                    key={i}
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-300/60 hover:text-[var(--color-accent-purple)] hover:scale-110 transition-all duration-300"
                                 >
-                                    <p
-                                        className={`mb-3 text-xs sm:text-sm font-mono tracking-[0.35em] ${theme.accent}`}
-                                    >
-                                        HELLO, I&apos;M
-                                    </p>
-                                    <h1
-                                        className={`
-                      mb-4 text-4xl sm:text-5xl lg:text-6xl font-black leading-tight
-                      ${theme.textPrimary}
-                    `}
-                                        style={{ letterSpacing: '0.05em', textTransform: 'uppercase' }}
-                                    >
-                                        Muhammad <br className="hidden sm:block" />
-                                        Azahrul <br className="hidden sm:block" />
-                                        Ramadhan
-                                    </h1>
+                                    <item.icon size={32} />
+                                </a>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
 
-                                    <p
-                                        className={`text-base sm:text-lg mb-3 font-mono ${theme.textSecondary}`}
-                                    >
-                                        ▌Aspiring Data Analyst ▌ Education & E-commerce Enthusiast
-                                    </p>
+                {/* Right Column: Visual */}
+                <div className="relative h-full min-h-[500px] flex items-center justify-center lg:justify-end">
+                    <EnhancedWaves />
 
-                                    <p
-                                        className={`text-sm sm:text-base mb-8 leading-relaxed ${theme.textSecondary}`}
-                                    >
-                                        I use data and systems thinking to solve real problems in
-                                        education and online retail — turning raw numbers into
-                                        decisions you can act on.
-                                    </p>
-                                </motion.div>
-
-                                {/* Buttons with 3D Tilt */}
-                                <div
-                                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8"
-                                    style={{ perspective: 1200, transformStyle: 'preserve-3d' }}
-                                >
-                                    <motion.a
-                                        href="#projects"
-                                        whileHover={{
-                                            rotateX: -10,
-                                            rotateY: 10,
-                                            translateY: -4,
-                                        }}
-                                        whileTap={{ scale: 0.97, translateY: 1 }}
-                                        transition={{
-                                            type: 'spring',
-                                            stiffness: 220,
-                                            damping: 18,
-                                            mass: 0.7,
-                                        }}
-                                        className={`
-                      inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-bold
-                      uppercase tracking-[0.2em] border-[3px]
-                      ${theme.pixelButtonPrimary}
-                    `}
-                                        style={{ transformStyle: 'preserve-3d' }}
-                                    >
-                                        ▶ Start Game / View Projects
-                                    </motion.a>
-
-                                    <motion.a
-                                        href="/cv.pdf"
-                                        whileHover={{
-                                            rotateX: -8,
-                                            rotateY: -8,
-                                            translateY: -3,
-                                        }}
-                                        whileTap={{ scale: 0.97, translateY: 1 }}
-                                        transition={{
-                                            type: 'spring',
-                                            stiffness: 220,
-                                            damping: 18,
-                                            mass: 0.7,
-                                        }}
-                                        className={`
-                      inline-flex items-center justify-center gap-2 px-6 py-3 text-sm sm:text-base font-bold
-                      uppercase tracking-[0.2em] border-[3px]
-                      ${theme.pixelButtonSecondary}
-                    `}
-                                        style={{ transformStyle: 'preserve-3d' }}
-                                    >
-                                        <FileText size={18} />
-                                        CV / Stats
-                                    </motion.a>
-                                </div>
-
-                                {/* Status bar */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: 0.25 }}
-                                    className={`
-                    grid grid-cols-3 gap-2 text-[0.65rem] sm:text-xs font-mono uppercase
-                    border-[3px] px-3 py-2
-                    ${theme.isDark
-                                            ? 'border-slate-600 bg-slate-900/80 text-slate-200'
-                                            : 'border-slate-400 bg-slate-100 text-slate-800'
-                                        }
-                  `}
-                                >
-                                    <div className="flex flex-col">
-                                        <span className="opacity-70">Level</span>
-                                        <span className="text-sm sm:text-base">01</span>
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="opacity-70">Lines</span>
-                                        <span className="text-sm sm:text-base">007</span>
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="opacity-70">Focus</span>
-                                        <span className="text-[0.7rem] sm:text-xs">
-                                            Data · Edu · E-Com
-                                        </span>
-                                    </div>
-                                </motion.div>
-                            </div>
-
-                            {/* Right: side panel */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 24, rotateY: 12 }}
-                                animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                whileHover={{
-                                    rotateX: -6,
-                                    rotateY: 8,
-                                    translateY: -4,
-                                }}
-                                style={{ transformStyle: 'preserve-3d' }}
-                                className={`
-                  border-[3px] rounded-md p-4 sm:p-5 font-mono text-xs sm:text-sm relative overflow-hidden
-                  ${theme.isDark
-                                        ? 'border-slate-600 bg-slate-950/90 text-slate-100'
-                                        : 'border-slate-400 bg-slate-50 text-slate-800'
-                                    }
-                `}
-                            >
-                                <div className="pointer-events-none absolute inset-0 opacity-[0.12] bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.4),transparent_55%)]" />
-
-                                <div className="mb-4 flex items-center justify-between relative z-10">
-                                    <span className="tracking-[0.25em] uppercase">Next</span>
-                                    <span className="tracking-[0.25em] uppercase opacity-70">
-                                        Piece
-                                    </span>
-                                </div>
-
-                                <div className="mb-5 flex justify-center relative z-10">
-                                    <div
-                                        style={{
-                                            perspective: 1000,
-                                            transformStyle: 'preserve-3d',
-                                        }}
-                                    >
-                                        <motion.div
-                                            animate={{
-                                                rotateX: [18, 26, 18],
-                                                rotateY: [-28, -12, -28],
-                                                y: [0, -8, 0],
-                                            }}
-                                            transition={{
-                                                duration: 8,
-                                                repeat: Infinity,
-                                                ease: 'easeInOut',
-                                            }}
-                                            className="grid grid-cols-4 gap-0.5 p-1 rounded-md bg-slate-900/80 border border-slate-700"
-                                            style={{
-                                                boxShadow:
-                                                    '10px 14px 18px rgba(15,23,42,0.9), 0 0 0 1px rgba(15,23,42,0.6)',
-                                            }}
-                                        >
-                                            <div className="w-5 h-5 bg-sky-400 rounded-[3px]" />
-                                            <div className="w-5 h-5 bg-sky-400 rounded-[3px]" />
-                                            <div className="w-5 h-5 bg-sky-400 rounded-[3px]" />
-                                            <div className="w-5 h-5 bg-sky-400 rounded-[3px]" />
-                                        </motion.div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-3 mb-5 relative z-10">
-                                    <div className="flex items-center justify-between">
-                                        <span className="opacity-70">Location</span>
-                                        <span className="font-semibold">Bogor, Indonesia</span>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="opacity-70">Status</span>
-                                        <span className="flex items-center gap-2 font-semibold">
-                                            <span className="w-2 h-2 rounded-sm bg-green-400 animate-pulse" />
-                                            Open to Work
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="border-t border-dashed pt-4 mt-4 border-slate-500/60 relative z-10">
-                                    <p className="mb-3 uppercase tracking-[0.2em] text-[0.6rem] opacity-70">
-                                        Connect
-                                    </p>
-                                    <div className="flex items-center gap-4">
-                                        <a
-                                            href="https://github.com"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`
-                        ${theme.textSecondary} transition-colors
-                        ${theme.isDark
-                                                    ? 'hover:text-lime-300'
-                                                    : 'hover:text-emerald-700'
-                                                }
-                      `}
-                                        >
-                                            <Github size={20} />
-                                        </a>
-                                        <a
-                                            href="https://linkedin.com"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`
-                        ${theme.textSecondary} transition-colors
-                        ${theme.isDark ? 'hover:text-cyan-300' : 'hover:text-sky-700'}
-                      `}
-                                        >
-                                            <Linkedin size={20} />
-                                        </a>
-                                        <a
-                                            href="mailto:azahrulsmavo@gmail.com"
-                                            className={`
-                        ${theme.textSecondary} transition-colors
-                        ${theme.isDark ? 'hover:text-red-300' : 'hover:text-red-600'
-                                                }
-                      `}
-                                        >
-                                            <Mail size={20} />
-                                        </a>
-                                    </div>
-                                </div>
-                            </motion.div>
+                    {/* Floating Badge (optional "Striking" element) */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 1, duration: 1 }}
+                        className="absolute right-10 top-20 bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-2xl hidden lg:block"
+                    >
+                        <div className="flex gap-4 items-center mb-2">
+                            <div className="w-3 h-3 rounded-full bg-red-500" />
+                            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                            <div className="w-3 h-3 rounded-full bg-green-500" />
+                        </div>
+                        <div className="font-mono text-xs text-blue-200 space-y-2">
+                            <p><span className="text-[var(--color-accent-purple)]">const</span> skills <span className="text-[var(--color-accent-orange)]">=</span> [</p>
+                            <p className="pl-4">'Data Analysis',</p>
+                            <p className="pl-4">'Business Intel',</p>
+                            <p className="pl-4">'Machine Learning'</p>
+                            <p>];</p>
                         </div>
                     </motion.div>
                 </div>

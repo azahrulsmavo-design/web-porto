@@ -1,23 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import TetrisSection from './TetrisSection';
-import { useTetrisTheme } from '../utils/themeUtils';
 
 const Experience = () => {
-    const theme = useTetrisTheme();
-
     return (
-        <TetrisSection
-            id="experience"
-            title="Experience"
-            subtitle="What I've been doing in the real world."
-            theme={theme}
-        >
-            <div className="space-y-6 text-sm">
+        <section id="experience" className="section-container bg-[var(--color-domino-bg)]">
+            <h2 className="section-title">Experience</h2>
+            <p className="section-subtitle">What I've been doing in the real world.</p>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[
                     {
                         role: 'Business Development & Operations',
-                        meta: 'Aug 2024 – Present · Kevin Book Store',
+                        company: 'Kevin Book Store',
+                        period: 'Aug 2024 – Present',
                         bullets: [
                             'Manage marketplace listings and pricing for 300+ SKUs across Shopee and TikTok Shop.',
                             'Design and document systems including SOPs and Excel/PowerQuery workflows.',
@@ -26,7 +21,8 @@ const Experience = () => {
                     },
                     {
                         role: 'Volunteer Tutor — Marginalized School Program',
-                        meta: '2022 – 2023 · Mathematics Tutor',
+                        company: 'Mathematics Tutor',
+                        period: '2022 – 2023',
                         bullets: [
                             'Provided mathematics tutoring for students from underserved school communities.',
                             'Developed simplified learning materials tailored to student needs.',
@@ -34,33 +30,36 @@ const Experience = () => {
                             'Collaborated with volunteer teams to review student progress.',
                         ],
                     },
-                ].map((exp) => (
+                ].map((exp, index) => (
                     <motion.div
                         key={exp.role}
-                        whileHover={{ translateY: -6, rotateX: -4, rotateY: 4 }}
-                        transition={{
-                            type: 'spring',
-                            stiffness: 230,
-                            damping: 18,
-                            mass: 0.7,
-                        }}
-                        className={`border-[3px] p-4 ${theme.subCardBg} ${theme.subCardBorder}`}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="bg-white p-8 rounded-lg shadow-sm border-l-4 border-[var(--color-domino-blue)] hover:shadow-md transition-shadow h-full"
                     >
-                        <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                            <h3 className={`font-semibold ${theme.pageText}`}>{exp.role}</h3>
-                            <span className="font-mono text-[0.7rem] uppercase tracking-[0.16em] opacity-70">
-                                {exp.meta}
-                            </span>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <div>
+                                <h3 className="text-xl font-bold text-[var(--color-domino-text-dark)]">{exp.role}</h3>
+                                <div className="text-[var(--color-domino-blue)] font-medium mt-1">{exp.company}</div>
+                            </div>
+                            <div className="text-sm font-semibold text-gray-500 mt-2 md:mt-0 uppercase tracking-wide">
+                                {exp.period}
+                            </div>
                         </div>
-                        <ul className={`list-disc pl-4 space-y-1.5 ${theme.textSecondary}`}>
+                        <ul className="space-y-3">
                             {exp.bullets.map((b) => (
-                                <li key={b}>{b}</li>
+                                <li key={b} className="flex gap-3 text-[var(--color-domino-text-light)]">
+                                    <span className="text-[var(--color-domino-blue)] mt-1.5">•</span>
+                                    <span>{b}</span>
+                                </li>
                             ))}
                         </ul>
                     </motion.div>
                 ))}
             </div>
-        </TetrisSection>
+        </section>
     );
 };
 
