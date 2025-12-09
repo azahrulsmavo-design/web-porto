@@ -4,95 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
-
-const cases = [
-    {
-        slug: 'web-porto',
-        title: 'Web Portfolio',
-        client: 'PERSONAL',
-        location: 'INDONESIA',
-        tags: ['REACT', 'TAILWIND', 'PORTFOLIO'],
-        desc: 'Personal portfolio website built with modern web technologies to showcase projects and skills.',
-        tech: ['JavaScript', 'React', 'Tailwind'],
-        timeline: 'Ongoing',
-        imageGradient: 'from-blue-100 to-blue-50',
-        category: 'Web App'
-    },
-    {
-        slug: 'antropics-interview',
-        title: 'Antropics Interview',
-        client: 'PERSONAL',
-        location: 'GLOBAL',
-        tags: ['ALGORITHMS', 'PYTHON', 'PROBLEM SOLVING'],
-        desc: 'Technical interview project focusing on problem-solving and algorithms using Python.',
-        tech: ['Python'],
-        timeline: '1 week',
-        imageGradient: 'from-emerald-100 to-emerald-50',
-        category: 'Data Analysis'
-    },
-    {
-        slug: 'internship-intelligence',
-        title: 'Internship Intelligence',
-        client: 'PERSONAL',
-        location: 'INDONESIA',
-        tags: ['DATA ANALYSIS', 'ETL', 'API'],
-        desc: 'Data analysis of tech job vacancies to identify skill trends. Involves data fetching (API), ETL, and analysis using Python.',
-        tech: ['Python', 'Jupyter', 'Pandas'],
-        timeline: '1 month',
-        imageGradient: 'from-orange-100 to-orange-50',
-        category: 'Data Analysis'
-    },
-    {
-        slug: 'ivy-design-system',
-        title: 'Ivy Design System',
-        client: 'OPEN SOURCE',
-        location: 'GLOBAL',
-        tags: ['DESIGN SYSTEM', 'CSS', 'ANIMATION'],
-        desc: 'A responsive web implementation of the "Ivy" design system. Features offset-grid layouts, noise textures, and smooth spring physics animations.',
-        tech: ['HTML', 'CSS', 'JavaScript'],
-        timeline: '2 weeks',
-        imageGradient: 'from-purple-100 to-purple-50',
-        category: 'Website'
-    },
-    {
-        slug: 'kevin-book-store',
-        title: 'Kevin Book Store',
-        client: 'KEVIN BOOKS',
-        location: 'YOGYAKARTA',
-        tags: ['WEB APP', 'DASHBOARD', 'TYPESCRIPT'],
-        desc: 'Landing page and dashboard for a local bookstore to manage sales and inventory.',
-        tech: ['TypeScript', 'React'],
-        timeline: '1 month',
-        imageGradient: 'from-pink-100 to-pink-50',
-        category: 'Web App'
-    },
-    {
-        slug: 'awing-body-repair',
-        title: 'AWING Body Repair',
-        client: 'AWING',
-        location: 'DEPOK',
-        tags: ['LANDING PAGE', 'SEO', 'TYPESCRIPT'],
-        desc: 'Official landing page for AWING Body Repair & Cat. Features WhatsApp conversion focus and local SEO optimization.',
-        tech: ['TypeScript', 'Next.js', 'Tailwind'],
-        timeline: '2 weeks',
-        imageGradient: 'from-cyan-100 to-cyan-50',
-        category: 'Website'
-    },
-    {
-        slug: 'road-traffic-analysis',
-        title: 'Road Traffic Analysis Pangyo',
-        client: 'RESEARCH',
-        location: 'KOREA',
-        tags: ['DATA ANALYSIS', 'VISSIM', 'PYTHON'],
-        desc: 'Data analysis of IEEE Pangyo autonomous driving traffic dataset (VISSIM simulation).',
-        tech: ['Python', 'Pandas', 'Jupyter'],
-        timeline: '1 month',
-        imageGradient: 'from-indigo-100 to-indigo-50',
-        category: 'Data Analysis'
-    }
-];
-
-const categories = ['All Projects', 'Web App', 'Data Analysis', 'Website'];
+import RevealTitle from '../components/RevealTitle';
+import { cases, categories } from '../data/cases';
 
 const Cases = () => {
     const [activeCategory, setActiveCategory] = useState('All Projects');
@@ -110,7 +23,7 @@ const Cases = () => {
             <section className="w-full pt-24 pb-4 px-8 lg:px-16">
                 <div className="mb-12">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
-                        <h2 className="text-5xl md:text-7xl font-bold tracking-tight">Explore our projects</h2>
+                        <RevealTitle text="Explore our projects" className="text-5xl md:text-7xl font-bold tracking-tight" />
                         <div>
                             <Button href="mailto:contact@azahrul.com" variant="outline">
                                 GET IN TOUCH
@@ -176,9 +89,7 @@ const Cases = () => {
                                 </div>
 
                                 {/* Title */}
-                                <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-8">
-                                    {project.title}
-                                </h3>
+                                <RevealTitle text={project.title} className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-8" />
 
                                 {/* Description */}
                                 <p className="text-lg text-slate-600 leading-relaxed mb-10">
@@ -205,11 +116,16 @@ const Cases = () => {
                                     </div>
                                 </div>
 
-                                {/* EXPLORE BUTTON */}
-                                <div>
+                                {/* EXPLORE BUTTON & VISIT BUTTON */}
+                                <div className="flex gap-4">
                                     <Button href={`/cases/${project.slug}`}>
                                         EXPLORE
                                     </Button>
+                                    {project.demoUrl && (
+                                        <Button href={project.demoUrl} variant="outline" target="_blank">
+                                            VISIT SITE
+                                        </Button>
+                                    )}
                                 </div>
                             </div>
                         </div>

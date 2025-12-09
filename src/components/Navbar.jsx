@@ -62,7 +62,7 @@ const Navbar = () => {
             <header
                 className={`fixed top-0 left-0 right-0 z-[100] transition-transform duration-300 ease-in-out ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
             >
-                <div className="bg-white/90 backdrop-blur-md shadow-sm w-full px-8 py-4 flex justify-between items-center">
+                <div className="bg-white/90 backdrop-blur-md shadow-sm w-full px-8 py-4 flex justify-between items-center max-w-7xl mx-auto rounded-none lg:rounded-b-2xl mt-0">
                     <Link to="/" className="flex items-center gap-3 no-underline">
                         <img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full object-cover border-2 border-slate-900" />
                         <span className="text-[1.25rem] font-bold text-slate-900 hidden sm:block">
@@ -89,33 +89,26 @@ const Navbar = () => {
                         })}
                     </nav>
 
-                    <div className="hidden lg:block w-[120px]"></div>
-                    <div className="lg:hidden w-8"></div>
+                    <div className="flex items-center gap-4">
+                        <div className="hidden lg:block">
+                            <Button href="#contact">HIRE ME</Button>
+                        </div>
+
+                        <button
+                            className="lg:hidden p-2 rounded-full hover:bg-slate-100 transition-colors"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                            <svg className="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                {isMenuOpen ? (
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                ) : (
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                )}
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </header>
-
-
-
-            <div className="fixed top-0 right-0 z-[101] p-0 pr-8 pt-2 pointer-events-none w-full flex justify-end">
-                <div className="pointer-events-auto flex items-center gap-4">
-                    <div className={`hidden lg:block transition-all duration-300 ${!isVisible ? 'translate-y-2' : ''}`}>
-                        <Button href="#contact">HIRE ME</Button>
-                    </div>
-
-                    <button
-                        className={`lg:hidden pointer-events-auto p-2 rounded-full transition-all duration-300 ${!isVisible ? 'bg-white/90 shadow-lg' : ''}`}
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        <svg className="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            {isMenuOpen ? (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                            ) : (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                            )}
-                        </svg>
-                    </button>
-                </div>
-            </div>
 
             {isMenuOpen && (
                 <div className="lg:hidden fixed inset-0 z-[99] bg-white pt-24 px-8">

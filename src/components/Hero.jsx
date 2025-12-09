@@ -97,11 +97,11 @@ const Hero = () => {
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-start gap-3 mb-8">
-                            <Button href="/cases">
+                            <Button href="#cases">
                                 VIEW WORK
                             </Button>
-                            <Button href="#contact" variant="outline">
-                                CONTACT
+                            <Button href="/resume.pdf" variant="outline" target="_blank">
+                                DOWNLOAD CV
                             </Button>
                         </div>
 

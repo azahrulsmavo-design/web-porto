@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Github } from 'lucide-react';
+import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
+import Button from './Button';
+import RevealTitle from './RevealTitle';
 
 const cases = [
     {
@@ -12,7 +14,8 @@ const cases = [
         tech: ['JavaScript', 'React', 'Tailwind'],
         timeline: 'Ongoing',
         imageGradient: 'from-blue-100 to-blue-50',
-        category: 'Web App'
+        category: 'Web App',
+        demoUrl: 'https://azahrul-portofolio.vercel.app/'
     },
     {
         title: 'Antropics Interview',
@@ -23,7 +26,8 @@ const cases = [
         tech: ['Python'],
         timeline: '1 week',
         imageGradient: 'from-emerald-100 to-emerald-50',
-        category: 'Data Analysis'
+        category: 'Data Analysis',
+        demoUrl: ''
     },
     {
         title: 'Internship Intelligence',
@@ -34,7 +38,8 @@ const cases = [
         tech: ['Python', 'Jupyter', 'Pandas'],
         timeline: '1 month',
         imageGradient: 'from-orange-100 to-orange-50',
-        category: 'Data Analysis'
+        category: 'Data Analysis',
+        demoUrl: ''
     },
     {
         title: 'Ivy Design System',
@@ -45,7 +50,8 @@ const cases = [
         tech: ['HTML', 'CSS', 'JavaScript'],
         timeline: '2 weeks',
         imageGradient: 'from-purple-100 to-purple-50',
-        category: 'Website'
+        category: 'Website',
+        demoUrl: ''
     },
     {
         title: 'Kevin Book Store',
@@ -56,7 +62,8 @@ const cases = [
         tech: ['TypeScript', 'React'],
         timeline: '1 month',
         imageGradient: 'from-pink-100 to-pink-50',
-        category: 'Web App'
+        category: 'Web App',
+        demoUrl: ''
     },
     {
         title: 'AWING Body Repair',
@@ -67,7 +74,8 @@ const cases = [
         tech: ['TypeScript', 'Next.js', 'Tailwind'],
         timeline: '2 weeks',
         imageGradient: 'from-cyan-100 to-cyan-50',
-        category: 'Website'
+        category: 'Website',
+        demoUrl: ''
     },
     {
         title: 'Road Traffic Analysis Pangyo',
@@ -78,7 +86,8 @@ const cases = [
         tech: ['Python', 'Pandas', 'Jupyter'],
         timeline: '1 month',
         imageGradient: 'from-indigo-100 to-indigo-50',
-        category: 'Data Analysis'
+        category: 'Data Analysis',
+        demoUrl: ''
     }
 ];
 
@@ -97,7 +106,7 @@ const Cases = () => {
             {/* Header & Filter */}
             <div className="mb-20">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
-                    <h2 className="text-5xl md:text-7xl font-bold tracking-tight">Explore our projects</h2>
+                    <RevealTitle text="Explore our projects" className="text-5xl md:text-7xl font-bold tracking-tight" />
                     <a href="#contact" className="hidden md:inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-full font-bold hover:bg-slate-800 transition-colors">
                         GET IN TOUCH <ArrowUpRight size={20} />
                     </a>
@@ -158,7 +167,7 @@ const Cases = () => {
                             </h3>
 
                             {/* Client Buttons */}
-                            <div className="flex gap-4 mb-12">
+                            <div className="flex flex-wrap gap-4 mb-12">
                                 <span className="px-6 py-3 bg-slate-900 text-white text-xs font-bold uppercase tracking-widest rounded-lg">
                                     {project.client}
                                 </span>
@@ -166,6 +175,11 @@ const Cases = () => {
                                     <span className="w-2 h-2 rounded-full bg-red-500"></span>
                                     {project.location}
                                 </span>
+                                {project.demoUrl && (
+                                    <Button href={project.demoUrl} variant="outline" target="_blank" className="!py-3 !text-xs !px-6">
+                                        VISIT SITE <ExternalLink size={14} className="ml-1" />
+                                    </Button>
+                                )}
                             </div>
 
                             {/* Description (Static) */}
