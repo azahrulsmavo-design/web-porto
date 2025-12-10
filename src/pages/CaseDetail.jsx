@@ -4,10 +4,18 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft, Github } from 'lucide-react';
 import { cases } from '../data/cases';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/locales';
 
 const CaseDetail = () => {
     const { slug } = useParams();
+    const { language } = useLanguage();
+
+    // Structural data (images, links, category, tags...)
     const project = cases.find(c => c.slug === slug);
+
+    // Content data (title, desc, details...)
+    const projectTrans = translations[language]?.projects[slug];
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -25,34 +33,34 @@ const CaseDetail = () => {
         );
     }
 
-    const details = project.details;
+    const details = projectTrans?.details;
 
     return (
         <div className="bg-white min-h-screen text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
             <Navbar />
 
             {/* Header / Hero */}
-            <section className="w-full pt-40 pb-20 px-8 lg:px-16 max-w-7xl mx-auto">
+            <section className="w-full pt-24 pb-12 lg:pt-40 lg:pb-20 px-6 lg:px-16 max-w-7xl mx-auto">
                 <Link to="/cases" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 font-bold mb-12 transition-colors uppercase tracking-widest text-xs">
-                    <ArrowLeft size={16} /> Back to Projects
+                    <ArrowLeft size={16} /> {language === 'en' ? 'Back to Projects' : 'Kembali'}
                 </Link>
 
                 {details ? (
                     <>
                         <div className="space-y-4 mb-16">
                             <h2 className="text-blue-600 font-bold tracking-widest uppercase">{details.subheader}</h2>
-                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight uppercase max-w-5xl">
+                            <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold leading-tight uppercase max-w-5xl">
                                 {details.header}
                             </h1>
-                            {details.githubLink && (
-                                <a href={details.githubLink} className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium transition-colors mt-4">
+                            {project.githubLink && (
+                                <a href={project.githubLink} className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium transition-colors mt-4">
                                     [ VIEW GITHUB ] <Github size={18} />
                                 </a>
                             )}
                         </div>
 
                         {/* Stats Grid */}
-                        <div className="grid md:grid-cols-3 gap-8 mb-24 border-y border-slate-200 py-12">
+                        <div className="grid md:grid-cols-3 gap-8 mb-12 lg:mb-24 border-y border-slate-200 py-8 lg:py-12">
                             {details.stats.map((stat, i) => (
                                 <div key={i}>
                                     <h3 className="text-2xl font-bold mb-3">{stat.title}</h3>
@@ -62,7 +70,7 @@ const CaseDetail = () => {
                         </div>
 
                         {/* Main Content Layout */}
-                        <div className="grid lg:grid-cols-12 gap-16">
+                        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
                             {/* Left Sidebar (Meta) */}
                             <div className="lg:col-span-4 space-y-12">
                                 <div>
@@ -77,18 +85,20 @@ const CaseDetail = () => {
                                         ))}
                                     </div>
                                 </div>
-                                <div>
-                                    <h4 className="font-bold uppercase tracking-widest text-xs text-slate-400 mb-4">Technologies</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {details.meta.technologies.map(t => (
-                                            <span key={t} className="px-3 py-1 bg-slate-100 rounded text-xs font-bold uppercase">{t}</span>
-                                        ))}
+                                {details.meta.technologies && (
+                                    <div>
+                                        <h4 className="font-bold uppercase tracking-widest text-xs text-slate-400 mb-4">Technologies</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {details.meta.technologies.map(t => (
+                                                <span key={t} className="px-3 py-1 bg-slate-100 rounded text-xs font-bold uppercase">{t}</span>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
 
                             {/* Right Content */}
-                            <div className="lg:col-span-8 space-y-24">
+                            <div className="lg:col-span-8 space-y-12 lg:space-y-24">
                                 {/* Overview */}
                                 <div>
                                     <h3 className="text-3xl font-bold mb-6">{details.overview.title}</h3>
@@ -103,43 +113,49 @@ const CaseDetail = () => {
                                     </div>
                                     <h3 className="text-2xl font-bold mb-6">{details.context.title}</h3>
                                     <p className="text-lg text-slate-600 leading-relaxed mb-6">{details.context.content}</p>
-                                    <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100">
-                                        <h4 className="font-bold mb-2 text-sm uppercase tracking-wide text-blue-600">Our Role</h4>
-                                        <p className="text-slate-700 italic">{details.context.role}</p>
-                                    </div>
+                                    {details.context.role && (
+                                        <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                                            <h4 className="font-bold mb-2 text-sm uppercase tracking-wide text-blue-600">Our Role</h4>
+                                            <p className="text-slate-700 italic">{details.context.role}</p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Process */}
-                                <div>
-                                    <div className="flex items-center gap-4 mb-8">
-                                        <span className="h-px w-12 bg-slate-300"></span>
-                                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">The Process</span>
+                                {details.process && (
+                                    <div>
+                                        <div className="flex items-center gap-4 mb-8">
+                                            <span className="h-px w-12 bg-slate-300"></span>
+                                            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">The Process</span>
+                                        </div>
+                                        <div className="space-y-12">
+                                            {details.process.map((step, i) => (
+                                                <div key={i} className="group">
+                                                    <h3 className="text-xl font-bold mb-4 group-hover:text-blue-600 transition-colors">{step.title}</h3>
+                                                    <p className="text-slate-600 leading-relaxed">{step.desc}</p>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="space-y-12">
-                                        {details.process.map((step, i) => (
-                                            <div key={i} className="group">
-                                                <h3 className="text-xl font-bold mb-4 group-hover:text-blue-600 transition-colors">{step.title}</h3>
-                                                <p className="text-slate-600 leading-relaxed">{step.desc}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                                )}
 
                                 {/* Findings */}
-                                <div>
-                                    <div className="flex items-center gap-4 mb-8">
-                                        <span className="h-px w-12 bg-slate-300"></span>
-                                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Key Findings (The "Wins")</span>
+                                {details.findings && (
+                                    <div>
+                                        <div className="flex items-center gap-4 mb-8">
+                                            <span className="h-px w-12 bg-slate-300"></span>
+                                            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Key Findings (The "Wins")</span>
+                                        </div>
+                                        <div className="grid gap-8">
+                                            {details.findings.map((item, i) => (
+                                                <div key={i} className="bg-slate-900 text-white p-8 rounded-2xl">
+                                                    <h3 className="text-xl font-bold mb-4 text-blue-400">{item.title}</h3>
+                                                    <div className="text-slate-300 leading-relaxed whitespace-pre-line">{item.desc}</div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="grid gap-8">
-                                        {details.findings.map((item, i) => (
-                                            <div key={i} className="bg-slate-900 text-white p-8 rounded-2xl">
-                                                <h3 className="text-xl font-bold mb-4 text-blue-400">{item.title}</h3>
-                                                <div className="text-slate-300 leading-relaxed whitespace-pre-line">{item.desc}</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                                )}
 
                                 {/* Project Gallery */}
                                 {details.images && details.images.length > 0 && (
@@ -166,10 +182,10 @@ const CaseDetail = () => {
                 ) : (
                     // Default / Placeholder view for projects without details
                     <div className="space-y-8">
-                        <h1 className="text-5xl font-bold mb-4">{project.title}</h1>
-                        <p className="text-xl text-slate-600">{project.desc}</p>
+                        <h1 className="text-5xl font-bold mb-4">{projectTrans?.title || project.title}</h1>
+                        <p className="text-xl text-slate-600">{projectTrans?.desc || project.desc}</p>
                         <div className="p-12 bg-slate-100 rounded-3xl text-center text-slate-400">
-                            Detailed case study content coming soon.
+                            {language === 'en' ? 'Detailed case study content coming soon.' : 'Konten studi kasus detail akan segera hadir.'}
                         </div>
                     </div>
                 )}

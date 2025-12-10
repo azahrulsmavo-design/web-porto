@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from './Button';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/locales';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,14 +10,16 @@ const Navbar = () => {
     const [lastScrollY, setLastScrollY] = useState(0);
     const location = useLocation();
     const navigate = useNavigate();
+    const { language, toggleLanguage } = useLanguage();
+    const t = translations[language].navbar;
 
     const navLinks = [
-        { title: 'Home', href: '/', type: 'page' },
-        { title: 'About', href: '/#about', type: 'section' },
-        { title: 'Skills', href: '/#skills', type: 'section' },
-        { title: 'Cases', href: '/cases', type: 'page' },
-        { title: 'Experience', href: '/#experience', type: 'section' },
-        { title: 'Contact', href: '/#contact', type: 'section' },
+        { title: t.home, href: '/', type: 'page' },
+        { title: t.about, href: '/#about', type: 'section' },
+        { title: t.skills, href: '/#skills', type: 'section' },
+        { title: t.cases, href: '/cases', type: 'page' },
+        { title: t.experience, href: '/#experience', type: 'section' },
+        { title: t.contact, href: '/#contact', type: 'section' },
     ];
 
     // Scroll Logic for visibility
@@ -90,8 +94,16 @@ const Navbar = () => {
                     </nav>
 
                     <div className="flex items-center gap-4">
+                        {/* Language Toggle */}
+                        <button
+                            onClick={toggleLanguage}
+                            className="text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors uppercase"
+                        >
+                            {language === 'en' ? 'ID' : 'EN'}
+                        </button>
+
                         <div className="hidden lg:block">
-                            <Button href="#contact">HIRE ME</Button>
+                            <Button href="#contact">{t.hireMe}</Button>
                         </div>
 
                         <button

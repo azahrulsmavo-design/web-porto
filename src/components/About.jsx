@@ -1,10 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ScrambleText from './ScrambleText';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/locales';
 
 const About = () => {
+    const { language } = useLanguage();
+    const t = translations[language].about;
+
     return (
-        <section id="about" className="w-full px-8 lg:px-16 py-24 bg-white text-slate-900">
+        <section id="about" className="w-full px-6 lg:px-16 py-12 lg:py-24 bg-white text-slate-900">
 
             {/* 1. HEADER: Full Width - Top */}
             <div className="mb-20 overflow-hidden">
@@ -13,12 +18,12 @@ const About = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="text-6xl md:text-8xl font-bold text-slate-900 mb-6 tracking-tight text-left"
+                    className="text-4xl md:text-8xl font-bold text-slate-900 mb-6 tracking-tight text-left"
                 >
-                    About Me.
+                    {t.title}
                 </motion.h2>
                 <div className="text-2xl md:text-3xl text-slate-400 font-light text-left">
-                    <ScrambleText text="Background, focus, and what I'm working on." delay={0.2} speed="fast" />
+                    <ScrambleText text={t.subtitle} delay={0.2} speed="fast" />
                 </div>
 
                 {/* Profile Image & Bio Container */}
@@ -32,15 +37,13 @@ const About = () => {
                         className="text-lg md:text-xl leading-relaxed text-slate-700 font-medium space-y-6"
                     >
                         <p>
-                            I’m a Math Education graduate who fell in love with data and systems.
+                            {t.bio1}
                             <span className="block mt-4">
-                                Over the last few years, I’ve been building and running Kevin Book Store,
-                                an education-focused online business, while learning data analytics and machine learning.
+                                {t.bio2}
                             </span>
                         </p>
                         <p className="text-slate-500">
-                            I enjoy turning messy, real-world data into clear insights and simple tools that people actually use.
-                            My background in education helps me communicate complex findings effectively.
+                            {t.bio3}
                         </p>
                     </motion.div>
 
@@ -63,33 +66,14 @@ const About = () => {
 
             {/* 3. DETAILS: List Layout */}
             <div className="space-y-16">
-                {[
-                    {
-                        label: 'Background',
-                        value: 'B.Ed. in Mathematics Education (UNY)',
-                        icon: '🎓',
-                        desc: 'Solid foundation in logic, statistics, and teaching complex concepts.'
-                    },
-                    {
-                        label: 'Focus',
-                        value: 'Data Analysis & Business Operations',
-                        icon: '🎯',
-                        desc: 'Bridging the gap between raw data and actionable business strategies.'
-                    },
-                    {
-                        label: 'Currently',
-                        value: 'Building Portfolio & Upskilling',
-                        icon: '🚀',
-                        desc: 'Preparing for full-time Data Analyst roles and expanding my ML toolkit.'
-                    },
-                ].map((item, index) => (
+                {t.details.map((item, index) => (
                     <motion.div
                         key={item.label}
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false, margin: "-10%" }}
                         transition={{ duration: 0.6 }}
-                        className="grid md:grid-cols-2 gap-8 items-start border-t border-slate-200 pt-16"
+                        className="grid md:grid-cols-2 gap-8 items-start border-t border-slate-200 pt-8 lg:pt-16"
                     >
                         {/* Left: Header/Context */}
                         <div>

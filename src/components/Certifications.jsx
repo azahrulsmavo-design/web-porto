@@ -6,15 +6,21 @@ import ScrambleText from './ScrambleText';
 const certifications = [
     {
         title: 'Google Analytics Certification',
-        issuer: 'SkillsUp',
-        year: 'Issued 2024',
+        issuer: 'Google',
+        year: 'Nov 2025 – Nov 2026',
         desc: 'Completed a data analytics certification focused on fundamentals of web analytics, tracking, interpreting traffic, behavior, conversion metrics, building dashboards, and funnel analysis.'
     },
     {
         title: 'Power BI for Beginners',
-        issuer: 'SimpleLearn Technologies',
-        year: 'Issued Nov 2025',
+        issuer: 'Simplilearn',
+        year: 'Issued 2025',
         desc: 'Foundational certification covering data import/transformation with Power Query, data modeling, interactive dashboard creation, and introductory DAX calculations.'
+    },
+    {
+        title: 'A/B Testing Fundamentals',
+        issuer: 'Udacity',
+        year: 'Issued 2025',
+        desc: 'Learned the principles of designing and analyzing A/B tests to make data-driven decisions.'
     }
 ];
 

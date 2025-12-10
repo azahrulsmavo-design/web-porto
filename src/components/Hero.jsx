@@ -5,6 +5,8 @@ import AnimatedChart from './AnimatedChart';
 import TypingCode from './TypingCode';
 import AnimatedTable from './AnimatedTable';
 import Button from './Button';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/locales';
 
 // Animation Utility: Scramble Text
 const ScrambleText = ({ text, className }) => {
@@ -34,6 +36,9 @@ const ScrambleText = ({ text, className }) => {
 };
 
 const Hero = () => {
+    const { language } = useLanguage();
+    const t = translations[language].hero;
+
     return (
         <section
             id="home"
@@ -67,10 +72,10 @@ const Hero = () => {
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
                         <p className="text-blue-600 font-mono tracking-widest uppercase mb-3 text-xs md:text-sm font-bold">
-                            // <ScrambleText text="Hello, I'm" />
+                            <ScrambleText text={t.hello} />
                         </p>
 
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-4">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-4">
                             <motion.span
                                 className="block text-slate-900"
                                 initial={{ opacity: 0, y: 50 }}
@@ -90,25 +95,25 @@ const Hero = () => {
                         </h1>
 
                         <div className="text-lg md:text-xl text-slate-600 mb-6 font-light max-w-lg leading-relaxed">
-                            <p><ScrambleText text="Aspiring Data Analyst." className="font-medium text-slate-800" /></p>
+                            <p><ScrambleText text={t.role} className="font-medium text-slate-800" /></p>
                             <p className="text-sm md:text-base text-slate-500 mt-2">
-                                <ScrambleText text="I use data and systems thinking to solve real problems in education and online retail." />
+                                <ScrambleText text={t.description} />
                             </p>
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-start gap-3 mb-8">
                             <Button href="#cases">
-                                VIEW WORK
+                                {t.viewWork}
                             </Button>
                             <Button href="/resume.pdf" variant="outline" target="_blank">
-                                DOWNLOAD CV
+                                {t.downloadCv}
                             </Button>
                         </div>
 
                         <div className="flex gap-5">
                             {[
                                 { icon: Github, href: "https://github.com" },
-                                { icon: Linkedin, href: "https://linkedin.com" },
+                                { icon: Linkedin, href: "https://linkedin.com/in/muhammad-azahrul-ramadhan-9728bb252" },
                                 { icon: Mail, href: "mailto:azahrulsmavo@gmail.com" }
                             ].map((item, i) => (
                                 <a
