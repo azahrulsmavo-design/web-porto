@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
-const Button = ({ href, children, className = "", onClick, variant = 'primary' }) => {
+const Button = ({ href, children, className = "", onClick, variant = 'primary', size = 'md' }) => {
     const isInternal = href && href.startsWith('/');
     const isPrimary = variant === 'primary';
 
@@ -43,6 +43,14 @@ const Button = ({ href, children, className = "", onClick, variant = 'primary' }
 
     const initialArrowColor = isPrimary ? 'text-white' : 'text-slate-900';
     const hoverArrowColor = 'text-slate-900';
+
+    // CONFIG BASED ON SIZE
+    const sizeClasses = size === 'sm'
+        ? 'px-6 py-2 min-w-[130px]'
+        : 'px-10 py-3 min-w-[170px]';
+
+    const textSize = size === 'sm' ? 'text-[10px] md:text-xs' : 'text-xs md:text-sm';
+    const iconSize = size === 'sm' ? 16 : 20;
 
     // ANIMATION
     const DURATION = 0.5;
@@ -97,17 +105,17 @@ const Button = ({ href, children, className = "", onClick, variant = 'primary' }
             />
 
             {/* CONTENT */}
-            <div className="relative z-10 flex items-center justify-center gap-1 px-10 py-3 min-w-[170px]">
+            <div className={`relative z-10 flex items-center justify-center gap-1 ${sizeClasses}`}>
                 <motion.div variants={arrowLeftVariants} className={`absolute left-5 ${hoverArrowColor}`}>
-                    <ArrowUpRight size={20} />
+                    <ArrowUpRight size={iconSize} />
                 </motion.div>
 
-                <motion.span variants={textVariants} className="font-bold uppercase tracking-widest text-xs md:text-sm">
+                <motion.span variants={textVariants} className={`font-bold uppercase tracking-widest ${textSize}`}>
                     {children}
                 </motion.span>
 
                 <motion.div variants={arrowRightVariants} className={`absolute right-5 ${initialArrowColor}`}>
-                    <ArrowUpRight size={20} />
+                    <ArrowUpRight size={iconSize} />
                 </motion.div>
             </div>
         </>
