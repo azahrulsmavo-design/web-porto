@@ -75,13 +75,13 @@ const Cases = () => {
                             className="relative flex flex-col lg:flex-row border-t border-slate-100"
                         >
                             {/* LEFT COLUMN: IMAGE */}
-                            <div className="w-full lg:w-1/2 min-h-[400px] lg:min-h-[500px] relative flex items-center justify-center p-6 lg:p-12 overflow-hidden bg-slate-50/50">
+                            <div className="w-full lg:w-1/2 min-h-[300px] lg:min-h-[400px] relative flex items-center justify-center p-4 lg:p-8 overflow-hidden bg-slate-50/50">
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.6 }}
                                     viewport={{ once: true }}
-                                    className={`relative w-full aspect-[16/10] max-w-lg rounded-none bg-gradient-to-br ${project.imageGradient} flex items-center justify-center shadow-lg overflow-hidden group`}
+                                    className={`relative w-full aspect-[16/10] max-w-md rounded-none bg-gradient-to-br ${project.imageGradient} flex items-center justify-center shadow-lg overflow-hidden group`}
                                 >
                                     {project.coverImage ? (
                                         <img
@@ -90,53 +90,53 @@ const Cases = () => {
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
                                     ) : (
-                                        <div className="text-slate-900/10 text-8xl font-bold select-none">
+                                        <div className="text-slate-900/10 text-6xl font-bold select-none">
                                             {project.category === 'Web App' ? '</>' : 'DATA'}
                                         </div>
                                     )}
 
                                     {/* Case ID */}
-                                    <div className="absolute top-6 right-6 text-3xl font-mono font-bold text-slate-900/5">
+                                    <div className="absolute top-4 right-4 text-2xl font-mono font-bold text-slate-900/5">
                                         0{index + 1}
                                     </div>
                                 </motion.div>
                             </div>
 
                             {/* RIGHT COLUMN: CONTENT */}
-                            <div className="w-full lg:w-1/2 flex flex-col justify-center p-6 lg:p-16 bg-white">
-                                <div className="max-w-xl">
+                            <div className="w-full lg:w-1/2 flex flex-col justify-center p-6 lg:p-12 bg-white">
+                                <div className="max-w-lg">
                                     {/* Tags */}
-                                    <div className="flex flex-wrap gap-2 text-xs font-bold text-blue-600 uppercase tracking-widest mb-4">
+                                    <div className="flex flex-wrap gap-2 text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-3">
                                         {project.tags.map(tag => (
                                             <span key={tag}>#{tag}</span>
                                         ))}
                                     </div>
 
                                     {/* Title */}
-                                    <RevealTitle text={projectTrans.title} className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-6" />
+                                    <RevealTitle text={projectTrans.title} className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight mb-4" />
 
                                     {/* Description */}
-                                    <p className="text-base text-slate-600 leading-relaxed mb-8">
+                                    <p className="text-sm text-slate-600 leading-relaxed mb-6">
                                         {projectTrans.desc}
                                     </p>
 
                                     {/* Meta Grid */}
-                                    <div className="grid grid-cols-2 gap-6 border-t border-slate-200 py-6 mb-6">
+                                    <div className="grid grid-cols-2 gap-4 border-t border-slate-200 py-4 mb-6">
                                         <div>
-                                            <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">{t.client}</div>
-                                            <div className="font-semibold text-slate-900 text-sm">{projectTrans.client || project.client}</div>
+                                            <div className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">{t.client}</div>
+                                            <div className="font-semibold text-slate-900 text-xs">{projectTrans.client || project.client}</div>
                                         </div>
                                         <div>
-                                            <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">{t.location}</div>
-                                            <div className="font-semibold text-slate-900 text-sm">{projectTrans.location || project.location}</div>
+                                            <div className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">{t.location}</div>
+                                            <div className="font-semibold text-slate-900 text-xs">{projectTrans.location || project.location}</div>
                                         </div>
                                         <div>
-                                            <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">{t.techStack}</div>
-                                            <div className="font-semibold text-slate-900 text-sm">{project.tech.join(', ')}</div>
+                                            <div className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">{t.techStack}</div>
+                                            <div className="font-semibold text-slate-900 text-xs">{project.tech.join(', ')}</div>
                                         </div>
                                         <div>
-                                            <div className="text-xs font-bold uppercase text-slate-400 tracking-widest mb-1">{t.timeline}</div>
-                                            <div className="font-semibold text-slate-900 text-sm">{project.timeline}</div>
+                                            <div className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-1">{t.timeline}</div>
+                                            <div className="font-semibold text-slate-900 text-xs">{project.timeline}</div>
                                         </div>
                                     </div>
 
