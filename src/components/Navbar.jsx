@@ -17,6 +17,7 @@ const Navbar = () => {
         { title: t.home, href: '/', type: 'page' },
         { title: t.about, href: '/#about', type: 'section' },
         { title: t.cases, href: '/cases', type: 'page' },
+        { title: t.personal, href: '/personal', type: 'page' },
         { title: t.quotes, href: '/quotes', type: 'page' },
     ];
 

@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Cases from './pages/Cases';
 import CaseDetail from './pages/CaseDetail';
 import DailyQuotes from './pages/DailyQuotes';
+import Personal from './pages/Personal';
 
 // Auth & Admin Imports
 import { AuthProvider } from './context/AuthContext';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/cases" element={<Cases />} />
             <Route path="/cases/:slug" element={<CaseDetail />} />
             <Route path="/quotes" element={<DailyQuotes />} />
+            <Route path="/personal" element={<Personal />} />
 
             {/* Admin Routes */}
             <Route path="/admin/login" element={<Login />} />
