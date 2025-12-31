@@ -2,92 +2,154 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useLanguage } from '../context/LanguageContext';
-import { Book, Heart, Coffee, Star, MapPin, Music } from 'lucide-react';
+import { Book, Heart, MessageCircle, Clock, Zap, Target, RefreshCw } from 'lucide-react';
 
 const Personal = () => {
     const { language } = useLanguage();
 
-    const favorites = {
+    const sections = {
+        now: {
+            title: "Now",
+            content: "I’m currently learning data engineering fundamentals and building small projects that help me understand real pipelines."
+        },
+        values: {
+            title: "Values",
+            items: [
+                { text: "Clarity over complexity", icon: <Target className="w-5 h-5 text-blue-500" /> },
+                { text: "Consistency beats intensity", icon: <Clock className="w-5 h-5 text-green-500" /> },
+                { text: "Build → reflect → improve", icon: <RefreshCw className="w-5 h-5 text-orange-500" /> }
+            ]
+        },
         books: [
-            { title: "Atomic Habits", author: "James Clear", desc: "Building good habits, breaking bad ones." },
-            { title: "Sapiens", author: "Yuval Noah Harari", desc: "A brief history of humankind." },
-            { title: "The Psychology of Money", author: "Morgan Housel", desc: "Timeless lessons on wealth, greed, and happiness." }
+            { title: "Atomic Habits", author: "James Clear", learned: "Small habits compound over time." },
+            { title: "Sapiens", author: "Yuval Noah Harari", learned: "Shared myths enable large-scale cooperation." },
+            { title: "The Psychology of Money", author: "Morgan Housel", learned: "Wealth is what you don't see." }
         ],
-        hobbies: [
-            { name: language === 'id' ? "Koding" : "Coding", icon: <Star className="w-5 h-5" /> },
-            { name: language === 'id' ? "Membaca" : "Reading", icon: <Book className="w-5 h-5" /> },
-            { name: language === 'id' ? "Musik" : "Music", icon: <Music className="w-5 h-5" /> },
-            { name: language === 'id' ? "Travel" : "Travel", icon: <MapPin className="w-5 h-5" /> }
-        ]
+        interests: ["Coding", "Reading", "Music", "Travel", "Data Engineering"],
+        contact: {
+            title: "Say Hi",
+            text: "If you want to talk about data, books, or career growth, feel free to reach out."
+        }
     };
 
     return (
-        <div className="bg-white min-h-screen flex flex-col">
+        <div className="bg-white min-h-screen flex flex-col font-sans text-slate-900">
             <Navbar />
 
-            <main className="flex-grow pt-32 pb-20 px-6">
-                <div className="max-w-4xl mx-auto">
-                    {/* Header */}
-                    <div className="text-center mb-16">
-                        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 font-serif">
-                            {language === 'id' ? 'Tentang Saya' : 'Personal Details'}
-                        </h1>
-                        <p className="text-xl text-slate-500 font-serif italic">
-                            {language === 'id' ? 'Di luar pekerjaan dan kode.' : 'Beyond the code and projects.'}
+            <main className="flex-grow pt-32 pb-20 px-6 max-w-3xl mx-auto w-full">
+
+                {/* Header Intro */}
+                <header className="mb-16">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+                        {language === 'id' ? 'Tentang Saya' : 'Personal Details'}
+                    </h1>
+                    <p className="text-xl text-slate-600 leading-relaxed font-serif">
+                        {language === 'id' ? 'Di luar pekerjaan dan kode.' : 'Beyond the code and projects.'}
+                    </p>
+                </header>
+
+                <div className="space-y-16">
+
+                    {/* Now Section */}
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 border-b border-slate-100 pb-2">
+                            {sections.now.title}
+                        </h2>
+                        <p className="text-lg text-slate-800 leading-relaxed bg-slate-50 p-6 rounded-xl border border-slate-100 italic">
+                            "{sections.now.content}"
                         </p>
-                    </div>
+                    </section>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        {/* Books Section */}
-                        <div className="space-y-8">
-                            <div className="flex items-center gap-3 border-b border-slate-200 pb-4">
-                                <Book className="w-6 h-6 text-purple-600" />
-                                <h2 className="text-2xl font-bold text-slate-900">
-                                    {language === 'id' ? 'Buku Favorit' : 'Favorite Books'}
-                                </h2>
-                            </div>
-                            <div className="space-y-6">
-                                {favorites.books.map((book, idx) => (
-                                    <div key={idx} className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition-shadow">
-                                        <h3 className="font-bold text-lg text-slate-900 mb-1">{book.title}</h3>
-                                        <p className="text-sm text-purple-600 mb-2">{book.author}</p>
-                                        <p className="text-slate-600 text-sm">{book.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Hobbies & Interests */}
-                        <div className="space-y-8">
-                            <div className="flex items-center gap-3 border-b border-slate-200 pb-4">
-                                <Heart className="w-6 h-6 text-red-500" />
-                                <h2 className="text-2xl font-bold text-slate-900">
-                                    {language === 'id' ? 'Minat & Hobi' : 'Interests & Hobbies'}
-                                </h2>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                {favorites.hobbies.map((hobby, idx) => (
-                                    <div key={idx} className="flex items-center gap-3 p-4 bg-white border border-slate-200 rounded-lg text-slate-700 font-medium hover:bg-slate-50 transition-colors">
-                                        {hobby.icon}
-                                        <span>{hobby.name}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Additional Info Block */}
-                            <div className="mt-8 bg-blue-50 p-6 rounded-xl border border-blue-100">
-                                <div className="flex items-center gap-2 mb-4 text-blue-800 font-bold">
-                                    <Coffee className="w-5 h-5" />
-                                    <h3>{language === 'id' ? 'Filosofi Saya' : 'My Philosophy'}</h3>
+                    {/* Philosophy / Values */}
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 border-b border-slate-100 pb-2">
+                            {sections.values.title}
+                        </h2>
+                        <div className="grid gap-4">
+                            {sections.values.items.map((item, idx) => (
+                                <div key={idx} className="flex items-center gap-4 p-4 rounded-lg bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="p-2 bg-slate-50 rounded-full">{item.icon}</div>
+                                    <span className="font-medium text-lg text-slate-800">{item.text}</span>
                                 </div>
-                                <p className="text-blue-900/80 leading-relaxed font-serif italic">
-                                    "{language === 'id'
-                                        ? 'Belajar terus menerus, berbagi pengetahuan, dan menciptakan dampak positif melalui teknologi.'
-                                        : 'Continuous learning, sharing knowledge, and creating positive impact through technology.'}"
-                                </p>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Favorite Books */}
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 border-b border-slate-100 pb-2">
+                            Favorite Books
+                        </h2>
+                        <div className="space-y-4">
+                            {sections.books.map((book, idx) => (
+                                <div key={idx} className="group">
+                                    <div className="flex items-baseline justify-between mb-1">
+                                        <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                            {book.title}
+                                        </h3>
+                                        <span className="text-sm text-slate-500 font-medium">{book.author}</span>
+                                    </div>
+                                    <p className="text-slate-600 text-sm">
+                                        <span className="font-semibold text-slate-400 mr-2">Learning:</span>
+                                        {book.learned}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Interests & Hobbies */}
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 border-b border-slate-100 pb-2">
+                            Interests & Hobbies
+                        </h2>
+                        <div className="flex flex-wrap gap-2">
+                            {sections.interests.map((interest, idx) => (
+                                <span key={idx} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-slate-200 transition-colors cursor-default">
+                                    {interest}
+                                </span>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Timeline (Mini) */}
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 border-b border-slate-100 pb-2">
+                            Mini Timeline
+                        </h2>
+                        <div className="border-l-2 border-slate-200 pl-4 space-y-6 ml-2">
+                            <div className="relative">
+                                <div className="absolute -left-[21px] top-1.5 w-3 h-3 bg-blue-500 rounded-full border-2 border-white"></div>
+                                <span className="text-xs font-bold text-blue-600 uppercase">2024 - Present</span>
+                                <h3 className="font-bold text-slate-900">Focusing on Data Engineering</h3>
+                                <p className="text-sm text-slate-500">Building pipelines and learning the modern data stack.</p>
+                            </div>
+                            <div className="relative">
+                                <div className="absolute -left-[21px] top-1.5 w-3 h-3 bg-slate-300 rounded-full border-2 border-white"></div>
+                                <span className="text-xs font-bold text-slate-500 uppercase">2023</span>
+                                <h3 className="font-bold text-slate-900">Web Development Deep Dive</h3>
+                                <p className="text-sm text-slate-500">Mastering React, Node.js, and Fullstack development.</p>
                             </div>
                         </div>
-                    </div>
+                    </section>
+
+                    {/* Say Hi */}
+                    <section className="bg-[var(--color-domino-dark-blue)] text-white p-8 rounded-2xl text-center">
+                        <div className="inline-flex items-center justify-center p-3 bg-white/10 rounded-full mb-4">
+                            <MessageCircle className="w-6 h-6 text-blue-200" />
+                        </div>
+                        <h2 className="text-2xl font-bold mb-3">{sections.contact.title}</h2>
+                        <p className="text-blue-100 mb-6 max-w-md mx-auto">
+                            {sections.contact.text}
+                        </p>
+                        <a
+                            href="mailto:muhammadazahrulramadhan@gmail.com"
+                            className="inline-block px-6 py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg"
+                        >
+                            Contact Me
+                        </a>
+                    </section>
+
                 </div>
             </main>
 
