@@ -4,17 +4,81 @@ import { LanguageProvider } from './context/LanguageContext';
 import Home from './pages/Home';
 import Cases from './pages/Cases';
 import CaseDetail from './pages/CaseDetail';
+import DailyQuotes from './pages/DailyQuotes';
+
+// Auth & Admin Imports
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/admin/Login';
+import Dashboard from './pages/admin/Dashboard';
+import ProjectForm from './pages/admin/ProjectForm';
+import BulkUpdate from './pages/admin/BulkUpdate';
+import DailyPostForm from './pages/admin/DailyPostForm';
 
 function App() {
   return (
     <LanguageProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cases" element={<Cases />} />
-          <Route path="/cases/:slug" element={<CaseDetail />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cases" element={<Cases />} />
+            <Route path="/cases/:slug" element={<CaseDetail />} />
+            <Route path="/quotes" element={<DailyQuotes />} />
+
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<Login />} />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/projects/new"
+              element={
+                <ProtectedRoute>
+                  <ProjectForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/projects/:slug/edit"
+              element={
+                <ProtectedRoute>
+                  <ProjectForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/bulk-update"
+              element={
+                <ProtectedRoute>
+                  <BulkUpdate />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/posts/new"
+              element={
+                <ProtectedRoute>
+                  <DailyPostForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/posts/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <DailyPostForm />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </LanguageProvider>
   );
 }

@@ -8,6 +8,7 @@ export const translations = {
             skills: 'Skills',
             cases: 'Cases',
             experience: 'Experience',
+            quotes: 'Quotes',
             contact: 'Contact',
             hireMe: 'HIRE ME'
         },
@@ -405,6 +406,7 @@ export const translations = {
             skills: 'Keahlian',
             cases: 'Proyek',
             experience: 'Pengalaman',
+            quotes: 'Kata Kata',
             contact: 'Kontak',
             hireMe: 'REKRUT SAYA'
         },

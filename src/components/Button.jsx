@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
-const Button = ({ href, children, className = "", onClick, variant = 'primary', size = 'md' }) => {
+const Button = ({ href, children, className = "", onClick, variant = 'primary', size = 'md', ...props }) => {
     const isInternal = href && href.startsWith('/');
     const isPrimary = variant === 'primary';
 
@@ -142,10 +142,18 @@ const Button = ({ href, children, className = "", onClick, variant = 'primary', 
         );
     }
 
+    if (href) {
+        return (
+            <a href={href} onClick={onClick} className="inline-block focus:outline-none">
+                <MotionWrapper />
+            </a>
+        );
+    }
+
     return (
-        <a href={href} onClick={onClick} className="inline-block focus:outline-none">
+        <button className="inline-block focus:outline-none bg-transparent p-0 border-none" onClick={onClick} {...props}>
             <MotionWrapper />
-        </a>
+        </button>
     );
 };
 

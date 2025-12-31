@@ -12,8 +12,11 @@
   "dependencies": {
     "@fontsource/albert-sans": "^5.2.8",
     "@fontsource/bricolage-grotesque": "^5.2.10",
+    "@supabase/supabase-js": "^2.89.0",
+    "dotenv": "^17.2.3",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.554.0",
+    "papaparse": "^5.5.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.10.1",

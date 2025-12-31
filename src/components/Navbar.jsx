@@ -16,10 +16,8 @@ const Navbar = () => {
     const navLinks = [
         { title: t.home, href: '/', type: 'page' },
         { title: t.about, href: '/#about', type: 'section' },
-        { title: t.skills, href: '/#skills', type: 'section' },
         { title: t.cases, href: '/cases', type: 'page' },
-        { title: t.experience, href: '/#experience', type: 'section' },
-        { title: t.contact, href: '/#contact', type: 'section' },
+        { title: t.quotes, href: '/quotes', type: 'page' },
     ];
 
     // Scroll Logic for visibility
