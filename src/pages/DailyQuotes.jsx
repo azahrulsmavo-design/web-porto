@@ -50,31 +50,75 @@ const DailyQuotes = () => {
             day: 'numeric'
         });
 
+        // Simple formatter for markdown/json/text
+        const renderContent = (text, format) => {
+            if (!text) return null;
+
+            if (format === 'json') {
+                try {
+                    return <pre className="bg-slate-50 p-4 rounded text-xs font-mono overflow-auto">{JSON.stringify(JSON.parse(text), null, 2)}</pre>;
+                } catch {
+                    return <div className="text-red-500 text-sm">Invalid JSON</div>;
+                }
+            }
+
+            // Primitive Markdown handling (just line breaks and bold for now, can be expanded)
+            if (format === 'markdown') {
+                return (
+                    <div className="prose prose-slate prose-lg max-w-none">
+                        {text.split('\n').map((line, i) => (
+                            <p key={i} className="mb-4 whitespace-pre-wrap">{line}</p>
+                        ))}
+                    </div>
+                );
+            }
+
+            // Default Text
+            return <div className="whitespace-pre-wrap">{text}</div>;
+        };
+
         return (
-            <div className={`relative group ${isFeatured ? 'mb-16' : 'mb-12'}`}>
+            <div className={`relative group ${isFeatured ? 'mb-20' : 'mb-16'}`}>
                 {isFeatured && (
-                    <div className="flex items-center gap-2 mb-4 text-purple-600 font-medium text-sm uppercase tracking-wider">
+                    <div className="flex items-center gap-2 mb-6 text-purple-600 font-medium text-sm uppercase tracking-wider">
                         <span className="flex h-2 w-2 rounded-full bg-purple-600 animate-pulse"></span>
                         {language === 'id' ? 'Artikel Hari Ini' : 'Today\'s Read'}
                     </div>
                 )}
 
                 <article className={`
-                    relative bg-white transition-all duration-300
+                    relative bg-white transition-all duration-300 flex flex-col gap-6
                     ${isFeatured
-                        ? '' // Minimalist for featured, let typography stand out
-                        : 'border-b border-slate-100 pb-8'
+                        ? '' // Minimalist for featured
+                        : 'border-b border-slate-100 pb-12'
                     }
                 `}>
+                    {/* Header Image */}
+                    {post.image_url && (
+                        <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-64 md:h-96 mb-6' : 'h-48 md:h-64 mb-4'}`}>
+                            <img src={post.image_url} alt={title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                        </div>
+                    )}
+
                     <div className="flex flex-col gap-4">
                         {/* Meta */}
-                        <div className="flex items-center gap-3 text-slate-500 text-sm">
-                            <span className="flex items-center gap-1.5">
-                                <Calendar className="w-4 h-4" />
+                        <div className="flex items-center flex-wrap gap-3 text-slate-500 text-sm">
+                            <span className="flex items-center gap-1.5 font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded">
+                                <Calendar className="w-3.5 h-3.5" />
                                 {date}
                             </span>
-                            <span>•</span>
-                            <span className="font-medium text-slate-700">{post.author}</span>
+
+                            {/* Tags */}
+                            {post.tags && post.tags.length > 0 && (
+                                <>
+                                    <span className="text-slate-300">•</span>
+                                    {post.tags.map(tag => (
+                                        <span key={tag} className="text-purple-600 hover:text-purple-700 font-medium capitalize">
+                                            #{tag}
+                                        </span>
+                                    ))}
+                                </>
+                            )}
                         </div>
 
                         {/* Heading */}
@@ -82,9 +126,9 @@ const DailyQuotes = () => {
                             {title}
                         </h2>
 
-                        {/* Content Preview / Body */}
-                        <div className={`font-serif text-slate-600 leading-relaxed whitespace-pre-wrap ${isFeatured ? 'text-lg md:text-xl' : 'text-base'}`}>
-                            {content}
+                        {/* Content */}
+                        <div className={`font-serif text-slate-600 leading-relaxed ${isFeatured ? 'text-lg md:text-xl' : 'text-base'}`}>
+                            {renderContent(content, post.format)}
                         </div>
 
                         {/* Actions */}

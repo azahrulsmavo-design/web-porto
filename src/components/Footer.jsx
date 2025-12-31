@@ -1,4 +1,5 @@
 import React from 'react';
+import { Lock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/locales';
 
@@ -15,6 +16,9 @@ const Footer = () => {
                         <p className="text-blue-200 text-sm">
                             © {new Date().getFullYear()} Muhammad Azahrul Ramadhan. {t.rights}
                         </p>
+                        <a href="/admin/login" className="opacity-20 hover:opacity-100 transition-opacity text-blue-200" title="Admin Access">
+                            <Lock className="w-3 h-3" />
+                        </a>
                     </div>
 
                     <div className="flex gap-6">
