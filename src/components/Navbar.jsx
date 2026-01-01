@@ -65,7 +65,7 @@ const Navbar = () => {
             <header
                 className={`fixed top-0 left-0 right-0 z-[100] transition-transform duration-300 ease-in-out ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
             >
-                <div className="bg-white/90 backdrop-blur-md shadow-sm w-full px-8 py-4 flex justify-between items-center max-w-7xl mx-auto rounded-none lg:rounded-b-2xl mt-0">
+                <div className="bg-white/90 backdrop-blur-md shadow-sm w-full px-5 py-3 md:px-8 md:py-4 flex justify-between items-center max-w-7xl mx-auto rounded-none lg:rounded-b-2xl mt-0">
                     <Link to="/" className="flex items-center gap-3 no-underline">
                         <img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full object-cover border-2 border-slate-900" />
                         <span className="text-[1.25rem] font-bold text-slate-900 hidden sm:block">
@@ -122,14 +122,14 @@ const Navbar = () => {
             </header>
 
             {isMenuOpen && (
-                <div className="lg:hidden fixed inset-0 z-[99] bg-white pt-24 px-8">
-                    <nav className="flex flex-col gap-6">
+                <div className="lg:hidden fixed inset-0 z-[99] bg-white pt-20 px-6">
+                    <nav className="flex flex-col gap-4">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.title}
                                 to={link.href}
                                 onClick={() => handleNavigation(link)}
-                                className="text-2xl font-bold text-slate-900"
+                                className="text-xl font-bold text-slate-900"
                             >
                                 {link.title}
                             </Link>

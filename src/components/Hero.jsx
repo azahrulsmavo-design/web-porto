@@ -42,7 +42,7 @@ const Hero = () => {
     return (
         <section
             id="home"
-            className="relative pt-12 pb-12 lg:pt-20 lg:pb-20 overflow-hidden bg-slate-50 text-slate-900 min-h-[85vh] flex items-center"
+            className="relative pt-8 pb-8 lg:pt-20 lg:pb-20 overflow-hidden bg-slate-50 text-slate-900 min-h-[75vh] flex items-center"
         >
             {/* Background Elements */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(59,130,246,0.05),transparent_70%)]" />
@@ -63,7 +63,7 @@ const Hero = () => {
                 ))}
             </div>
 
-            <div className="max-w-7xl mx-auto w-full px-6 lg:px-12 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="max-w-7xl mx-auto w-full px-5 lg:px-12 relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 {/* Left Column: Text */}
                 <div className="text-left z-20">
                     <motion.div
@@ -71,11 +71,11 @@ const Hero = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        <p className="text-blue-600 font-mono tracking-widest uppercase mb-3 text-xs md:text-sm font-bold">
+                        <p className="text-blue-600 font-mono tracking-widest uppercase mb-2 text-xs font-bold">
                             <ScrambleText text={t.hello} />
                         </p>
 
-                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-4">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-3">
                             <motion.span
                                 className="block text-slate-900"
                                 initial={{ opacity: 0, y: 50 }}
@@ -94,9 +94,9 @@ const Hero = () => {
                             </motion.span>
                         </h1>
 
-                        <div className="text-lg md:text-xl text-slate-600 mb-6 font-light max-w-lg leading-relaxed">
+                        <div className="text-base md:text-xl text-slate-600 mb-6 font-light max-w-lg leading-relaxed">
                             <p><ScrambleText text={t.role} className="font-medium text-slate-800" /></p>
-                            <p className="text-sm md:text-base text-slate-500 mt-2">
+                            <p className="text-xs md:text-base text-slate-500 mt-2">
                                 <ScrambleText text={t.description} />
                             </p>
                         </div>

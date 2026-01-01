@@ -125,11 +125,11 @@ const DailyPostDetail = () => {
         <div className="bg-white min-h-screen font-sans selection:bg-purple-100 selection:text-purple-900">
             <Navbar />
 
-            <article className="pt-32 pb-24">
+            <article className="pt-24 pb-12 md:pt-32 md:pb-24">
                 {/* Hero / Header */}
-                <div className="max-w-3xl mx-auto px-6 mb-12">
+                <div className="max-w-3xl mx-auto px-5 md:px-6 mb-8 md:mb-12">
                     {/* Back Link */}
-                    <div className="mb-8">
+                    <div className="mb-6 md:mb-8">
                         <Link to="/daily-post" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors group">
                             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                             <span className="text-sm font-medium uppercase tracking-wider">{language === 'id' ? 'KEMBALI KE BERANDA' : 'BACK TO FEED'}</span>
@@ -141,7 +141,7 @@ const DailyPostDetail = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tight"
+                        className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 md:mb-8 leading-tight tracking-tight"
                     >
                         {title}
                     </motion.h1>

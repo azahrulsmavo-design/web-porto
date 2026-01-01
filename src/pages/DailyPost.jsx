@@ -124,21 +124,21 @@ const DailyPost = () => {
                 )}
 
                 <article className={`
-                    relative bg-white transition-all duration-300 flex flex-col gap-6
+                    relative bg-white transition-all duration-300 flex flex-col gap-4 md:gap-6
                     ${isFeatured
                         ? '' // Minimalist for featured
-                        : 'border-b border-slate-100 pb-12'
+                        : 'border-b border-slate-100 pb-8 md:pb-12'
                     }
                 `}>
                     <Link to={`/daily-post/${post.id}`} className="block group cursor-pointer">
                         {/* Header Image */}
                         {post.image_url && (
-                            <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-64 md:h-96 mb-6' : 'h-48 md:h-64 mb-4'}`}>
+                            <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-48 md:h-96 mb-4 md:mb-6' : 'h-40 md:h-64 mb-3 md:mb-4'}`}>
                                 <img src={post.image_url} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                             </div>
                         )}
 
-                        <div className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-2 md:gap-4">
                             {/* Meta */}
                             <div className="flex items-center flex-wrap gap-3 text-slate-500 text-sm">
                                 <span className="flex items-center gap-1.5 font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded">
@@ -203,16 +203,16 @@ const DailyPost = () => {
         <div className="bg-white min-h-screen">
             <Navbar />
 
-            <div className="pt-32 pb-20">
+            <div className="pt-24 pb-12 md:pt-32 md:pb-20">
                 {/* Header */}
-                <div className="max-w-3xl mx-auto px-6 mb-12 text-center">
-                    <div className="inline-flex items-center justify-center p-3 bg-slate-50 rounded-full mb-6">
-                        <BookOpen className="w-6 h-6 text-slate-900" />
+                <div className="max-w-3xl mx-auto px-5 mb-8 md:mb-12 text-center">
+                    <div className="inline-flex items-center justify-center p-2.5 md:p-3 bg-slate-50 rounded-full mb-4 md:mb-6">
+                        <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-slate-900" />
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight font-serif">
+                    <h1 className="text-3xl md:text-6xl font-bold text-slate-900 mb-4 md:mb-6 tracking-tight font-serif">
                         {language === 'id' ? 'Postingan Harian' : 'Daily Post'}
                     </h1>
-                    <p className="text-lg md:text-xl text-slate-500 max-w-xl mx-auto font-serif italic">
+                    <p className="text-base md:text-xl text-slate-500 max-w-xl mx-auto font-serif italic">
                         {language === 'id'
                             ? 'Kumpulan pemikiran pendek, refleksi, dan ide-ide yang layak dibagikan.'
                             : 'A collection of short thoughts, reflections, and ideas worth sharing.'}

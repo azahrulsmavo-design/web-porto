@@ -20,7 +20,7 @@ const Footer = () => {
     // facebook: https://www.facebook.com/muhammad.azahrul.ramadhan
 
     return (
-        <footer className="bg-[var(--color-domino-dark-blue)] text-white py-12 mt-auto">
+        <footer className="bg-slate-900 text-white py-10 md:py-20 border-t border-slate-800">
             <div className="w-full px-8 lg:px-16">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="text-center md:text-left">

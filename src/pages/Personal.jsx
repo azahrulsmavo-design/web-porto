@@ -36,7 +36,7 @@ const Personal = () => {
         <div className="bg-white min-h-screen flex flex-col font-sans text-slate-900">
             <Navbar />
 
-            <main className="flex-grow pt-32 pb-20 px-6 max-w-3xl mx-auto w-full">
+            <main className="flex-grow pt-24 pb-12 px-5 md:pt-32 md:pb-20 md:px-6 max-w-3xl mx-auto w-full">
 
                 {/* Header Intro */}
                 <header className="mb-16">

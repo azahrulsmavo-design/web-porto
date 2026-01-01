@@ -60,7 +60,7 @@ const Cases = () => {
             <Navbar />
 
             {/* Page Header */}
-            <section className="w-full pt-24 pb-4 px-8 lg:px-16">
+            <section className="w-full pt-24 pb-4 px-5 md:pt-32 md:px-16">
                 <div className="mb-12">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
                         <RevealTitle text={t.title} className="text-3xl md:text-5xl lg:text-7xl font-bold tracking-tight" />

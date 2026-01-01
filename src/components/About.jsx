@@ -9,32 +9,32 @@ const About = () => {
     const t = translations[language].about;
 
     return (
-        <section id="about" className="w-full px-6 lg:px-16 py-12 lg:py-24 bg-white text-slate-900">
+        <section id="about" className="w-full px-5 md:px-6 lg:px-16 py-8 lg:py-24 bg-white text-slate-900">
 
             {/* 1. HEADER: Full Width - Top */}
-            <div className="mb-20 overflow-hidden">
+            <div className="mb-12 md:mb-20 overflow-hidden">
                 <motion.h2
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="text-4xl md:text-8xl font-bold text-slate-900 mb-6 tracking-tight text-left"
+                    className="text-3xl md:text-8xl font-bold text-slate-900 mb-4 md:mb-6 tracking-tight text-left"
                 >
                     {t.title}
                 </motion.h2>
-                <div className="text-2xl md:text-3xl text-slate-400 font-light text-left">
+                <div className="text-xl md:text-3xl text-slate-400 font-light text-left">
                     <ScrambleText text={t.subtitle} delay={0.2} speed="fast" />
                 </div>
 
                 {/* Profile Image & Bio Container */}
-                <div className="grid md:grid-cols-2 gap-12 mt-16 items-start">
+                <div className="grid md:grid-cols-2 gap-6 md:gap-12 mt-8 md:mt-16 items-start">
                     {/* Left: Bio Text */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false }}
                         transition={{ duration: 0.6 }}
-                        className="text-lg md:text-xl leading-relaxed text-slate-700 font-medium space-y-6"
+                        className="text-base md:text-xl leading-relaxed text-slate-700 font-medium space-y-4 md:space-y-6"
                     >
                         <p>
                             {t.bio1}
@@ -42,7 +42,7 @@ const About = () => {
                                 {t.bio2}
                             </span>
                         </p>
-                        <p className="text-slate-500">
+                        <p className="text-slate-500 text-sm md:text-base">
                             {t.bio3}
                         </p>
                     </motion.div>
@@ -65,7 +65,7 @@ const About = () => {
             </div>
 
             {/* 3. DETAILS: List Layout */}
-            <div className="space-y-16">
+            <div className="space-y-8 md:space-y-16">
                 {t.details.map((item, index) => (
                     <motion.div
                         key={item.label}
@@ -73,19 +73,19 @@ const About = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false, margin: "-10%" }}
                         transition={{ duration: 0.6 }}
-                        className="grid md:grid-cols-2 gap-8 items-start border-t border-slate-200 pt-8 lg:pt-16"
+                        className="grid md:grid-cols-2 gap-4 md:gap-8 items-start border-t border-slate-200 pt-6 lg:pt-16"
                     >
                         {/* Left: Header/Context */}
                         <div>
-                            <div className="text-4xl mb-4 text-blue-600">{item.icon}</div>
-                            <h3 className="text-sm font-bold text-slate-400 tracking-widest uppercase mb-2">{item.label}</h3>
-                            <div className="text-2xl font-bold text-slate-900">
+                            <div className="text-2xl md:text-4xl mb-2 md:mb-4 text-blue-600">{item.icon}</div>
+                            <h3 className="text-xs md:text-sm font-bold text-slate-400 tracking-widest uppercase mb-1 md:mb-2">{item.label}</h3>
+                            <div className="text-xl md:text-2xl font-bold text-slate-900">
                                 <ScrambleText text={item.value} delay={0.1} speed="fast" />
                             </div>
                         </div>
 
                         {/* Right: Explanation */}
-                        <div className="text-xl text-slate-600 leading-relaxed md:pt-14">
+                        <div className="text-base md:text-xl text-slate-600 leading-relaxed md:pt-14">
                             {item.desc}
                         </div>
                     </motion.div>
