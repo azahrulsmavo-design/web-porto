@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { supabase } from '../lib/supabase';
-import { Copy, Check, Calendar, BookOpen } from 'lucide-react';
+import { Copy, Check, Calendar, BookOpen, Search, ArrowUpDown, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-const DailyQuotes = () => {
+const DailyPost = () => {
     const { language } = useLanguage();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [copiedId, setCopiedId] = useState(null);
+
+    // Filters
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortOrder, setSortOrder] = useState('desc'); // 'desc' or 'asc'
+    const [selectedDate, setSelectedDate] = useState('');
 
     useEffect(() => {
         fetchPosts();
@@ -40,6 +45,37 @@ const DailyQuotes = () => {
         });
     };
 
+    const filteredPosts = useMemo(() => {
+        let result = [...posts];
+
+        // Search
+        if (searchQuery) {
+            const lowerQuery = searchQuery.toLowerCase();
+            result = result.filter(post => {
+                const title = (language === 'id' ? (post.title_id || post.title_en) : post.title_en).toLowerCase();
+                const content = (language === 'id' ? (post.content_id || post.content_en) : post.content_en).toLowerCase();
+                return title.includes(lowerQuery) || content.includes(lowerQuery);
+            });
+        }
+
+        // Date Filter
+        if (selectedDate) {
+            result = result.filter(post => {
+                const postDate = new Date(post.published_at).toISOString().split('T')[0];
+                return postDate === selectedDate;
+            });
+        }
+
+        // Sort
+        result.sort((a, b) => {
+            const dateA = new Date(a.published_at).getTime();
+            const dateB = new Date(b.published_at).getTime();
+            return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+        });
+
+        return result;
+    }, [posts, searchQuery, selectedDate, sortOrder, language]);
+
     const ArticleCard = ({ post, isFeatured = false }) => {
         const title = language === 'id' ? (post.title_id || post.title_en) : post.title_en;
         const content = language === 'id' ? (post.content_id || post.content_en) : post.content_en;
@@ -62,7 +98,7 @@ const DailyQuotes = () => {
                 }
             }
 
-            // Primitive Markdown handling (just line breaks and bold for now, can be expanded)
+            // Primitive Markdown handling
             if (format === 'markdown') {
                 return (
                     <div className="prose prose-slate prose-lg max-w-none">
@@ -79,7 +115,7 @@ const DailyQuotes = () => {
 
         return (
             <div className={`relative group ${isFeatured ? 'mb-20' : 'mb-16'}`}>
-                {isFeatured && (
+                {isFeatured && !searchQuery && !selectedDate && (
                     <div className="flex items-center gap-2 mb-6 text-purple-600 font-medium text-sm uppercase tracking-wider">
                         <span className="flex h-2 w-2 rounded-full bg-purple-600 animate-pulse"></span>
                         {language === 'id' ? 'Artikel Hari Ini' : 'Today\'s Read'}
@@ -163,18 +199,79 @@ const DailyQuotes = () => {
 
             <div className="pt-32 pb-20">
                 {/* Header */}
-                <div className="max-w-3xl mx-auto px-6 mb-16 text-center">
+                <div className="max-w-3xl mx-auto px-6 mb-12 text-center">
                     <div className="inline-flex items-center justify-center p-3 bg-slate-50 rounded-full mb-6">
                         <BookOpen className="w-6 h-6 text-slate-900" />
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight font-serif">
-                        {language === 'id' ? 'Jurnal Harian' : 'Daily Journal'}
+                        {language === 'id' ? 'Postingan Harian' : 'Daily Post'}
                     </h1>
                     <p className="text-lg md:text-xl text-slate-500 max-w-xl mx-auto font-serif italic">
                         {language === 'id'
                             ? 'Kumpulan pemikiran pendek, refleksi, dan ide-ide yang layak dibagikan.'
                             : 'A collection of short thoughts, reflections, and ideas worth sharing.'}
                     </p>
+                </div>
+
+                {/* Controls */}
+                <div className="max-w-3xl mx-auto px-6 mb-16">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row gap-4">
+                        {/* Search */}
+                        <div className="flex-1 relative">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                            <input
+                                type="text"
+                                placeholder={language === 'id' ? 'Cari judul...' : 'Search titles...'}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all text-slate-900 placeholder:text-slate-400"
+                            />
+                            {searchQuery && (
+                                <button
+                                    onClick={() => setSearchQuery('')}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                            )}
+                        </div>
+
+                        <div className="flex gap-2">
+                            {/* Date Picker */}
+                            <div className="relative">
+                                <input
+                                    type="date"
+                                    value={selectedDate}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
+                                    className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all text-slate-900 cursor-pointer"
+                                />
+                            </div>
+
+                            {/* Sort Toggle */}
+                            <button
+                                onClick={() => setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')}
+                                className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors text-slate-700 font-medium"
+                            >
+                                <ArrowUpDown className="w-4 h-4" />
+                                <span className="hidden sm:inline">
+                                    {sortOrder === 'desc'
+                                        ? (language === 'id' ? 'Terbaru' : 'Newest')
+                                        : (language === 'id' ? 'Terlama' : 'Oldest')
+                                    }
+                                </span>
+                            </button>
+
+                            {selectedDate && (
+                                <button
+                                    onClick={() => setSelectedDate('')}
+                                    className="p-2 text-slate-400 hover:text-red-500 transition-colors"
+                                    title="Reset Date"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
                 {/* Main Content */}
@@ -186,38 +283,37 @@ const DailyQuotes = () => {
                     ) : (
                         <AnimatePresence mode="wait">
                             <motion.div
+                                key={sortOrder + searchQuery + selectedDate} // Re-animate on filter change
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                {posts.length > 0 ? (
+                                {filteredPosts.length > 0 ? (
                                     <>
-                                        {/* Featured (Latest) */}
-                                        <ArticleCard post={posts[0]} isFeatured={true} />
-
-                                        {/* Divider */}
-                                        {posts.length > 1 && (
-                                            <div className="flex items-center gap-4 mb-12">
-                                                <div className="h-px bg-slate-200 flex-1"></div>
-                                                <span className="text-slate-400 text-sm font-medium uppercase tracking-widest">
-                                                    {language === 'id' ? 'Tulisan Terdahulu' : 'Previous Reads'}
-                                                </span>
-                                                <div className="h-px bg-slate-200 flex-1"></div>
-                                            </div>
-                                        )}
-
-                                        {/* Archive */}
+                                        {/* Display all matching posts */}
                                         <div className="space-y-2">
-                                            {posts.slice(1).map(post => (
-                                                <ArticleCard key={post.id} post={post} />
+                                            {filteredPosts.map((post, index) => (
+                                                <ArticleCard
+                                                    key={post.id}
+                                                    post={post}
+                                                    isFeatured={index === 0 && !searchQuery && !selectedDate} // Only feature first item if no filter active
+                                                />
                                             ))}
                                         </div>
                                     </>
                                 ) : (
                                     <div className="text-center py-20 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
                                         <p className="text-slate-500 font-medium">
-                                            {language === 'id' ? 'Belum ada tulisan.' : 'No articles yet.'}
+                                            {language === 'id' ? 'Tidak ada postingan yang ditemukan.' : 'No posts found.'}
                                         </p>
+                                        {(searchQuery || selectedDate) && (
+                                            <button
+                                                onClick={() => { setSearchQuery(''); setSelectedDate(''); }}
+                                                className="mt-4 text-purple-600 hover:text-purple-700 font-medium text-sm"
+                                            >
+                                                {language === 'id' ? 'Bersihkan filter' : 'Clear filters'}
+                                            </button>
+                                        )}
                                     </div>
                                 )}
                             </motion.div>
@@ -231,4 +327,4 @@ const DailyQuotes = () => {
     );
 };
 
-export default DailyQuotes;
+export default DailyPost;

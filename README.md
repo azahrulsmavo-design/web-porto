@@ -9,66 +9,81 @@ The website is designed with a premium dark theme, featuring smooth animations a
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technical Stack
 
-This project is built using modern web development technologies:
+This project is engineered using a robust modern web stack, focusing on performance, scalability, and developer experience.
 
-- **[React 19](https://react.dev/)**: JavaScript library for building user interfaces.
-- **[Vite](https://vitejs.dev/)**: Next Generation Frontend Tooling for fast development and building.
-- **[Tailwind CSS 4](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI development.
-- **[Framer Motion](https://www.framer.com/motion/)**: A production-ready motion library for React to handle animations.
-- **[Lucide React](https://lucide.dev/)**: Beautiful & consistent icons.
+### Core Frameworks & Languages
+- **[React 19](https://react.dev/)**: The latest version of the library for building user interfaces, utilizing Server Components concepts and enhanced hooks.
+- **[JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)**: Core logic and interactivity.
+- **[Vite 7](https://vitejs.dev/)**: Ultra-fast build tool and development server with Hot Module Replacement (HMR).
+
+### Styling & Design System
+- **[Tailwind CSS 4](https://tailwindcss.com/)**: Utility-first CSS framework for rapid, maintainable UI development.
+- **[PostCSS](https://postcss.org/)**: Tool for transforming CSS with JavaScript plugins.
+- **[Framer Motion](https://www.framer.com/motion/)**: Production-ready animation library for complex UI transitions and gestures.
+- **[Lucide React](https://lucide.dev/)**: Consistent, lightweight SVG iconography.
+
+### Backend & Data Services
+- **[Supabase](https://supabase.com/)**: Open Source Firebase alternative used for:
+  - **Database**: Postgres database for storing "Daily Posts" and content.
+  - **Authentication**: Secure admin login for content management.
+  - **Storage**: Media assets hosting.
+
+### Routing & State Management
+- **[React Router v7](https://reactrouter.com/)**: Dynamic client-side routing.
+- **Context API**: Global state management for Theme (Dark/Light) and Language (EN/ID).
 
 ---
 
-## 📌 Features
+## 📌 Key Features
 
-- ⚡ **High Performance**: Powered by Vite and optimized for speed.
-- 📱 **Fully Responsive**: Looks great on mobile, tablet, and desktop devices.
-- 🎨 **Modern UI/UX**: Premium dark theme with glassmorphism effects and smooth transitions.
-- 🧩 **Comprehensive Sections**:
-  - **Hero**: Introduction and Call to Action.
-  - **About**: Background and professional summary.
-  - **Skills**: Technical skills categorized by domain.
-  - **Experience**: Professional timeline.
-  - **Projects**: Showcase of data analysis and coding projects.
-  - **Certifications**: Professional achievements and certificates.
-  - **Contact**: Social links and email connection.
+### 1. Dynamic Content Management
+- **Daily Posts**: A built-in CMS allowing the admin to create, edit, and publish daily articles.
+- **Admin Dashboard**: Protected route (`/admin`) for managing content and portfolio settings.
+- **Multi-language Support**: Full English and Indonesian localization via `LanguageContext`.
 
-## 📁 Selected Projects
+### 2. Advanced UI/UX
+- **Glassmorphism**: Modern frosted glass effects on cards and navigation.
+- **Scroll Animations**: Elements fade and slide in as the user scrolls.
+- **Responsive Layouts**: Adaptive grids that transition seamlessly from Mobile to Desktop.
 
-- **Web Portfolio** (React, Tailwind): Personal portfolio website built with modern web technologies.
-- **Antropics Interview** (Python): Technical interview project focusing on problem-solving and algorithms.
-- **Internship Intelligence** (Python, Jupyter): Data analysis of tech job vacancies to identify skill trends.
-- **Ivy Design System** (HTML, CSS): A responsive web implementation of the "Ivy" design system.
-- **Kevin Book Store** (TypeScript, React): Landing page and dashboard for a local bookstore.
-- **AWING Body Repair** (Next.js, Tailwind): Official landing page for a body repair shop.
-- **Road Traffic Analysis Pangyo** (Python, VISSIM): Data analysis of autonomous driving traffic dataset.
+### 3. Performance Optimization
+- **Code Splitting**: Dynamic imports to reduce initial bundle size.
+- **Lazy Loading**: Assets and components loaded only when needed.
 
 ---
 
 ## 🗂️ Project Structure
 
+The project uses a modular architecture to separate concerns and improve maintainability.
+
 ```
 /
-├── public/            # Static assets
+├── public/                # Static assets (images, icons)
 ├── src/
-│   ├── assets/        # Images and icons
-│   ├── components/    # Reusable React components
-│   │   ├── About.jsx
-│   │   ├── Certifications.jsx
-│   │   ├── Contact.jsx
-│   │   ├── Experience.jsx
-│   │   ├── Footer.jsx
-│   │   ├── Hero.jsx
-│   │   ├── Navbar.jsx
-│   │   ├── Projects.jsx
-│   │   └── Skills.jsx
-│   ├── App.jsx        # Main application component
-│   ├── main.jsx       # Entry point
-│   └── index.css      # Global styles and Tailwind directives
-├── package.json       # Dependencies and scripts
-└── vite.config.js     # Vite configuration
+│   ├── assets/            # Imported assets
+│   ├── components/        # Reusable UI components
+│   │   ├── Navbar.jsx     # Global navigation
+│   │   ├── Footer.jsx     # Site footer
+│   │   └── ProtectedRoute.jsx # Auth guard wrapper
+│   ├── context/           # Global state contexts
+│   │   ├── AuthContext.jsx
+│   │   └── LanguageContext.jsx
+│   ├── data/              # Static data and locale files
+│   │   └── locales.js     # Translation strings
+│   ├── lib/               # Utility libraries (Supabase client)
+│   ├── pages/             # Route components
+│   │   ├── admin/         # Protected admin pages
+│   │   ├── Home.jsx       # Landing page
+│   │   ├── DailyPost.jsx  # Dynamic blog page
+│   │   ├── Cases.jsx      # Projects list
+│   │   └── Personal.jsx   # Personal details
+│   ├── App.jsx            # Main app router
+│   └── main.jsx           # App entry point
+├── .env                   # Environment variables
+├── package.json           # Dependencies and scripts
+└── vite.config.js         # Vite configuration
 ```
 
 ---
@@ -88,16 +103,18 @@ cd web-porto
 npm install
 ```
 
-### 3. Run the development server
+### 3. Environment Variables
+Create a `.env` file in the root and add your Supabase credentials:
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### 4. Run the development server
 ```bash
 npm run dev
 ```
 Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-### 4. Build for production
-```bash
-npm run build
-```
 
 ---
 

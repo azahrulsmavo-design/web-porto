@@ -18,7 +18,7 @@ const Navbar = () => {
         { title: t.about, href: '/#about', type: 'section' },
         { title: t.cases, href: '/cases', type: 'page' },
         { title: t.personal, href: '/personal', type: 'page' },
-        { title: t.quotes, href: '/quotes', type: 'page' },
+        { title: t.quotes, href: '/daily-post', type: 'page' },
     ];
 
     // Scroll Logic for visibility

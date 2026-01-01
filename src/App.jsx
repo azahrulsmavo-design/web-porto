@@ -4,7 +4,7 @@ import { LanguageProvider } from './context/LanguageContext';
 import Home from './pages/Home';
 import Cases from './pages/Cases';
 import CaseDetail from './pages/CaseDetail';
-import DailyQuotes from './pages/DailyQuotes';
+import DailyPost from './pages/DailyPost';
 import Personal from './pages/Personal';
 
 // Auth & Admin Imports
@@ -25,7 +25,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/cases" element={<Cases />} />
             <Route path="/cases/:slug" element={<CaseDetail />} />
-            <Route path="/quotes" element={<DailyQuotes />} />
+            <Route path="/daily-post" element={<DailyPost />} />
             <Route path="/personal" element={<Personal />} />
 
             {/* Admin Routes */}
