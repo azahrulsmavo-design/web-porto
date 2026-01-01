@@ -76,7 +76,7 @@ const Navbar = () => {
                     <nav className="hidden lg:flex gap-8 items-center">
                         {navLinks.map((link) => {
                             // Determine if active
-                            const isActive = location.pathname === link.href || (link.href !== '/' && location.pathname + location.hash === link.href);
+                            const isActive = location.pathname === link.href || (link.href !== '/' && location.pathname.startsWith(link.href));
 
                             return (
                                 <Link

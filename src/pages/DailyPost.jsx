@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { Copy, Check, Calendar, BookOpen, Search, ArrowUpDown, X } from 'lucide-react';
@@ -129,64 +130,69 @@ const DailyPost = () => {
                         : 'border-b border-slate-100 pb-12'
                     }
                 `}>
-                    {/* Header Image */}
-                    {post.image_url && (
-                        <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-64 md:h-96 mb-6' : 'h-48 md:h-64 mb-4'}`}>
-                            <img src={post.image_url} alt={title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-                        </div>
-                    )}
+                    <Link to={`/daily-post/${post.id}`} className="block group cursor-pointer">
+                        {/* Header Image */}
+                        {post.image_url && (
+                            <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-64 md:h-96 mb-6' : 'h-48 md:h-64 mb-4'}`}>
+                                <img src={post.image_url} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                            </div>
+                        )}
 
-                    <div className="flex flex-col gap-4">
-                        {/* Meta */}
-                        <div className="flex items-center flex-wrap gap-3 text-slate-500 text-sm">
-                            <span className="flex items-center gap-1.5 font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded">
-                                <Calendar className="w-3.5 h-3.5" />
-                                {date}
-                            </span>
+                        <div className="flex flex-col gap-4">
+                            {/* Meta */}
+                            <div className="flex items-center flex-wrap gap-3 text-slate-500 text-sm">
+                                <span className="flex items-center gap-1.5 font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded">
+                                    <Calendar className="w-3.5 h-3.5" />
+                                    {date}
+                                </span>
 
-                            {/* Tags */}
-                            {post.tags && post.tags.length > 0 && (
-                                <>
-                                    <span className="text-slate-300">•</span>
-                                    {post.tags.map(tag => (
-                                        <span key={tag} className="text-purple-600 hover:text-purple-700 font-medium capitalize">
-                                            #{tag}
-                                        </span>
-                                    ))}
-                                </>
-                            )}
-                        </div>
-
-                        {/* Heading */}
-                        <h2 className={`font-serif leading-tight text-slate-900 group-hover:text-purple-700 transition-colors ${isFeatured ? 'text-4xl md:text-5xl font-bold mb-2' : 'text-2xl md:text-3xl font-bold'}`}>
-                            {title}
-                        </h2>
-
-                        {/* Content */}
-                        <div className={`font-serif text-slate-600 leading-relaxed ${isFeatured ? 'text-lg md:text-xl' : 'text-base'}`}>
-                            {renderContent(content, post.format)}
-                        </div>
-
-                        {/* Actions */}
-                        <div className="flex items-center gap-4 pt-4">
-                            <button
-                                onClick={() => handleCopy(title, post.id)} // Copy Title as the "Quote"
-                                className="inline-flex items-center gap-2 text-slate-400 hover:text-purple-600 transition-colors text-sm font-medium"
-                                title="Copy Headline"
-                            >
-                                {copiedId === post.id ? (
+                                {/* Tags */}
+                                {post.tags && post.tags.length > 0 && (
                                     <>
-                                        <Check className="w-4 h-4" />
-                                        <span>{language === 'id' ? 'Tersalin' : 'Copied'}</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Copy className="w-4 h-4" />
-                                        <span>{language === 'id' ? 'Salin Judul' : 'Copy Headline'}</span>
+                                        <span className="text-slate-300">•</span>
+                                        {post.tags.map(tag => (
+                                            <span key={tag} className="text-purple-600 hover:text-purple-700 font-medium capitalize">
+                                                #{tag}
+                                            </span>
+                                        ))}
                                     </>
                                 )}
-                            </button>
+                            </div>
+
+                            {/* Heading */}
+                            <h2 className={`font-serif leading-tight text-slate-900 group-hover:text-purple-700 transition-colors ${isFeatured ? 'text-4xl md:text-5xl font-bold mb-2' : 'text-2xl md:text-3xl font-bold'}`}>
+                                {title}
+                            </h2>
+
+                            {/* Content Preview */}
+                            <div className={`font-serif text-slate-600 leading-relaxed line-clamp-3 ${isFeatured ? 'text-lg md:text-xl' : 'text-base'}`}>
+                                {language === 'id' ? 'Klik untuk membaca selengkapnya...' : 'Click to read more...'}
+                            </div>
                         </div>
+                    </Link>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-4 pt-4">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleCopy(title, post.id);
+                            }}
+                            className="inline-flex items-center gap-2 text-slate-400 hover:text-purple-600 transition-colors text-sm font-medium z-10"
+                            title="Copy Headline"
+                        >
+                            {copiedId === post.id ? (
+                                <>
+                                    <Check className="w-4 h-4" />
+                                    <span>{language === 'id' ? 'Tersalin' : 'Copied'}</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Copy className="w-4 h-4" />
+                                    <span>{language === 'id' ? 'Salin Judul' : 'Copy Headline'}</span>
+                                </>
+                            )}
+                        </button>
                     </div>
                 </article>
             </div>
