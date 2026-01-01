@@ -124,23 +124,23 @@ const DailyPost = () => {
                 )}
 
                 <article className={`
-                    relative bg-white transition-all duration-300 flex flex-col gap-4 md:gap-6
+                    relative bg-white transition-all duration-300 flex flex-col gap-3 md:gap-5
                     ${isFeatured
-                        ? '' // Minimalist for featured
-                        : 'border-b border-slate-100 pb-8 md:pb-12'
+                        ? ''
+                        : 'border-b border-slate-200 pb-8 md:pb-12 mb-8 md:mb-12'
                     }
                 `}>
                     <Link to={`/daily-post/${post.id}`} className="block group cursor-pointer">
                         {/* Header Image */}
                         {post.image_url && (
-                            <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-48 md:h-96 mb-4 md:mb-6' : 'h-40 md:h-64 mb-3 md:mb-4'}`}>
+                            <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-48 md:h-96 mb-4 md:mb-6' : 'h-40 md:h-60 mb-3 md:mb-5'}`}>
                                 <img src={post.image_url} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                             </div>
                         )}
 
-                        <div className="flex flex-col gap-2 md:gap-4">
+                        <div className="flex flex-col gap-2 md:gap-3">
                             {/* Meta */}
-                            <div className="flex items-center flex-wrap gap-3 text-slate-500 text-sm">
+                            <div className="flex items-center flex-wrap gap-3 text-slate-500 text-xs md:text-sm">
                                 <span className="flex items-center gap-1.5 font-medium text-slate-800 bg-slate-50 px-2 py-1 rounded">
                                     <Calendar className="w-3.5 h-3.5" />
                                     {date}
@@ -160,35 +160,49 @@ const DailyPost = () => {
                             </div>
 
                             {/* Heading */}
-                            <h2 className={`font-serif leading-tight text-slate-900 group-hover:text-purple-700 transition-colors ${isFeatured ? 'text-4xl md:text-5xl font-bold mb-2' : 'text-2xl md:text-3xl font-bold'}`}>
+                            <h2 className={`font-serif leading-tight text-slate-900 group-hover:text-purple-700 transition-colors ${isFeatured ? 'text-3xl md:text-5xl font-bold mb-2' : 'text-xl md:text-2xl font-bold'}`}>
                                 {title}
                             </h2>
 
-                            {/* Content Preview */}
-                            <div className={`font-serif text-slate-600 leading-relaxed line-clamp-3 ${isFeatured ? 'text-lg md:text-xl' : 'text-base'}`}>
-                                {language === 'id' ? 'Klik untuk membaca selengkapnya...' : 'Click to read more...'}
+                            {/* Content Preview (Excerpt) */}
+                            <div className={`font-serif text-slate-500 leading-relaxed line-clamp-3 ${isFeatured ? 'text-lg md:text-xl' : 'text-base'}`}>
+                                {(() => {
+                                    let raw = content || '';
+                                    if (post.format === 'json') {
+                                        try {
+                                            const parsed = JSON.parse(raw);
+                                            raw = typeof parsed === 'string' ? parsed : JSON.stringify(parsed);
+                                        } catch { }
+                                    }
+                                    const plain = raw
+                                        .replace(/[#*`]/g, '')
+                                        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+                                        .replace(/\n+/g, ' ')
+                                        .trim();
+                                    return plain.length > 200 ? plain.substring(0, 200) + '...' : plain;
+                                })()}
                             </div>
                         </div>
                     </Link>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-4 pt-4">
+                    <div className="flex items-center gap-4 pt-2">
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleCopy(title, post.id);
                             }}
-                            className="inline-flex items-center gap-2 text-slate-400 hover:text-purple-600 transition-colors text-sm font-medium z-10"
+                            className="inline-flex items-center gap-2 text-slate-400 hover:text-purple-600 transition-colors text-xs md:text-sm font-medium z-10"
                             title="Copy Headline"
                         >
                             {copiedId === post.id ? (
                                 <>
-                                    <Check className="w-4 h-4" />
+                                    <Check className="w-3.5 h-3.5" />
                                     <span>{language === 'id' ? 'Tersalin' : 'Copied'}</span>
                                 </>
                             ) : (
                                 <>
-                                    <Copy className="w-4 h-4" />
+                                    <Copy className="w-3.5 h-3.5" />
                                     <span>{language === 'id' ? 'Salin Judul' : 'Copy Headline'}</span>
                                 </>
                             )}
