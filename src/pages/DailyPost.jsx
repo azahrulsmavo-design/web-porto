@@ -130,7 +130,7 @@ const DailyPost = () => {
                         : 'border-b border-slate-200 pb-8 md:pb-12 mb-8 md:mb-12'
                     }
                 `}>
-                    <Link to={`/daily-post/${post.id}`} className="block group cursor-pointer">
+                    <Link to={`/daily-post/${post.slug}`} className="block group cursor-pointer">
                         {/* Header Image */}
                         {post.image_url && (
                             <div className={`overflow-hidden rounded-xl bg-slate-100 ${isFeatured ? 'h-48 md:h-96 mb-4 md:mb-6' : 'h-40 md:h-60 mb-3 md:mb-5'}`}>
@@ -316,7 +316,7 @@ const DailyPost = () => {
                                                 <ArticleCard
                                                     key={post.id}
                                                     post={post}
-                                                    isFeatured={index === 0 && !searchQuery && !selectedDate} // Only feature first item if no filter active
+                                                    isFeatured={false} // Disable featured layout for consistency
                                                 />
                                             ))}
                                         </div>

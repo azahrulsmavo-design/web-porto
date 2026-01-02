@@ -27,7 +27,7 @@ function App() {
             <Route path="/cases" element={<Cases />} />
             <Route path="/cases/:slug" element={<CaseDetail />} />
             <Route path="/daily-post" element={<DailyPost />} />
-            <Route path="/daily-post/:id" element={<DailyPostDetail />} />
+            <Route path="/daily-post/:slug" element={<DailyPostDetail />} />
             <Route path="/personal" element={<Personal />} />
 
             {/* Admin Routes */}

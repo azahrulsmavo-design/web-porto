@@ -61,8 +61,10 @@ const DailyPostForm = () => {
     };
 
     const generateSlug = () => {
-        if (!formData.title_en) return alert('Enter Title EN first');
-        const slug = formData.title_en
+        const sourceTitle = formData.title_id || formData.title_en;
+        if (!sourceTitle) return alert('Enter a Title (ID or EN) first');
+
+        const slug = sourceTitle
             .toLowerCase()
             .trim()
             .replace(/[^\w\s-]/g, '')

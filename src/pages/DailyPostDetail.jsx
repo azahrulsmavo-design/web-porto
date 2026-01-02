@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const DailyPostDetail = () => {
-    const { id } = useParams();
+    const { slug } = useParams();
     const { language } = useLanguage();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -17,14 +17,14 @@ const DailyPostDetail = () => {
 
     useEffect(() => {
         fetchPost();
-    }, [id]);
+    }, [slug]);
 
     const fetchPost = async () => {
         try {
             const { data, error } = await supabase
                 .from('daily_posts')
                 .select('*')
-                .eq('id', id)
+                .eq('slug', slug)
                 .single();
 
             if (error) throw error;
