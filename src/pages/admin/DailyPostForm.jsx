@@ -85,6 +85,24 @@ const DailyPostForm = () => {
         setFormData(prev => ({ ...prev, tags: tags.join(', ') }));
     };
 
+    // Helper: UTCTimestamp/ISOString -> Local "YYYY-MM-DDTHH:mm" for input
+    const toLocalISOString = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+
+        // Check if date is valid
+        if (isNaN(date.getTime())) return '';
+
+        const pad = (num) => num.toString().padStart(2, '0');
+        const year = date.getFullYear(); // Local year
+        const month = pad(date.getMonth() + 1); // Local month
+        const day = pad(date.getDate()); // Local day
+        const hours = pad(date.getHours()); // Local hours
+        const minutes = pad(date.getMinutes()); // Local minutes
+
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -95,13 +113,16 @@ const DailyPostForm = () => {
                 ? formData.tags.split(',').map(t => t.trim()).filter(Boolean)
                 : [];
 
+            // Handle Date: If from Input (Local ISO) or DB (UTC ISO), ensure it is saved as UTC ISO
+            const publishedAtUTC = formData.published_at
+                ? new Date(formData.published_at).toISOString()
+                : (formData.status === 'published' ? new Date().toISOString() : null);
+
             const payload = {
                 ...formData,
                 tags: tagsArray,
                 updated_at: new Date().toISOString(),
-                published_at: formData.status === 'published' && !formData.published_at
-                    ? new Date().toISOString()
-                    : formData.published_at
+                published_at: publishedAtUTC
             };
 
             let error;
@@ -175,7 +196,7 @@ const DailyPostForm = () => {
                                     <input
                                         type="datetime-local"
                                         name="published_at"
-                                        value={formData.published_at ? new Date(formData.published_at).toISOString().slice(0, 16) : ''}
+                                        value={toLocalISOString(formData.published_at)}
                                         onChange={handleChange}
                                         className="w-full p-2 border rounded"
                                     />
