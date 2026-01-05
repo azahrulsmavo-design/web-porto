@@ -158,6 +158,46 @@ const Personal = () => {
                         </div>
                     </section>
 
+                    {/* Learning Journal */}
+                    <section>
+                        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 border-b border-slate-100 pb-2">
+                            {language === 'id' ? 'Jurnal Belajar' : 'Learning Journal'}
+                        </h2>
+
+                        {loadingPosts ? (
+                            <div className="flex justify-center py-8">
+                                <div className="w-6 h-6 border-2 border-slate-200 border-t-emerald-500 rounded-full animate-spin"></div>
+                            </div>
+                        ) : learnPosts.length > 0 ? (
+                            <div className="space-y-4">
+                                {learnPosts.map((post) => {
+                                    const date = new Date(post.published_at).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', {
+                                        month: 'short',
+                                        day: 'numeric'
+                                    });
+                                    const title = language === 'id' ? (post.title_id || post.title_en) : post.title_en;
+
+                                    return (
+                                        <div key={post.id} className="group relative pl-4 border-l-2 border-emerald-100 hover:border-emerald-300 transition-colors">
+                                            <div className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-emerald-200 group-hover:bg-emerald-400 transition-colors"></div>
+                                            <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mb-1">
+                                                <span className="text-xs font-bold text-emerald-600 w-16 shrink-0 font-mono pt-0.5">{date}</span>
+                                                <h3 className="text-base font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">
+                                                    {title}
+                                                </h3>
+                                            </div>
+                                            {/* Optional: Add snippet if desired, but keep it clean for now */}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <p className="text-slate-500 italic text-sm">
+                                {language === 'id' ? 'Belum ada catatan.' : 'No updates yet.'}
+                            </p>
+                        )}
+                    </section>
+
                     {/* Say Hi */}
                     <section className="bg-[var(--color-domino-dark-blue)] text-white p-8 rounded-2xl text-center">
                         <div className="inline-flex items-center justify-center p-3 bg-white/10 rounded-full mb-4">
