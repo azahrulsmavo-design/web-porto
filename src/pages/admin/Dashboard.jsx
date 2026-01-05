@@ -215,6 +215,7 @@ const Dashboard = () => {
                             <thead className="bg-slate-50">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Article</th>
+                                    <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Type</th>
                                     <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
                                     <th className="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Published</th>
                                     <th className="px-6 py-3 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Actions</th>
@@ -226,6 +227,11 @@ const Dashboard = () => {
                                         <td className="px-6 py-4">
                                             <div className="text-sm font-bold text-slate-900">{post.title_en || '(No Title)'}</div>
                                             <div className="text-xs text-slate-500 truncate max-w-xs">{post.slug}</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <span className="px-2 w-fit inline-flex text-xs leading-5 font-semibold rounded-full bg-slate-100 text-slate-800 uppercase tracking-wide">
+                                                {post.post_type || 'daily'}
+                                            </span>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
