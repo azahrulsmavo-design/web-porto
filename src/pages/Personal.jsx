@@ -183,9 +183,9 @@ const Personal = () => {
                                             <div className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-emerald-200 group-hover:bg-emerald-400 transition-colors"></div>
                                             <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 mb-1">
                                                 <span className="text-xs font-bold text-emerald-600 w-16 shrink-0 font-mono pt-0.5">{date}</span>
-                                                <h3 className="text-base font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">
+                                                <Link to={`/daily-post/${post.slug}`} className="text-base font-bold text-slate-800 group-hover:text-emerald-700 transition-colors hover:underline">
                                                     {title}
-                                                </h3>
+                                                </Link>
                                             </div>
                                             {/* Optional: Add snippet if desired, but keep it clean for now */}
                                         </div>
