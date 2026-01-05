@@ -22,6 +22,7 @@ const DailyPostForm = () => {
         content_id: '',
         image_url: '',
         format: 'text',
+        post_type: 'daily', // default
         tags: '', // string for input, converted to array on submit
     });
 
@@ -45,7 +46,8 @@ const DailyPostForm = () => {
                 ...data,
                 tags: data.tags ? data.tags.join(', ') : '',
                 // ensure format is set
-                format: data.format || 'text'
+                format: data.format || 'text',
+                post_type: data.post_type || 'daily'
             });
         } catch (error) {
             console.error('Error fetching post:', error);
@@ -173,6 +175,13 @@ const DailyPostForm = () => {
                                 <select name="status" value={formData.status} onChange={handleChange} className="w-full p-2 border rounded">
                                     <option value="draft">Draft</option>
                                     <option value="published">Published</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-slate-700 mb-1">Type</label>
+                                <select name="post_type" value={formData.post_type} onChange={handleChange} className="w-full p-2 border rounded">
+                                    <option value="daily">Daily Post</option>
+                                    <option value="learn">Learn Progress</option>
                                 </select>
                             </div>
                             <div>
