@@ -28,6 +28,10 @@ const DailyPost = () => {
                 .from('daily_posts')
                 .select('*')
                 .eq('status', 'published')
+                // .eq('post_type', 'daily') // Un-comment this after migration is run. For now, we assume all current posts are daily.
+                // Actually, if we want to hide 'learn' posts from here, we MUST filter. 
+                // We'll trust the migration is run or will be run.
+                .eq('post_type', 'daily')
                 .order('published_at', { ascending: false });
 
             if (error) throw error;
