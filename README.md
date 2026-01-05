@@ -40,6 +40,7 @@ This project is engineered using a robust modern web stack, focusing on performa
 
 ### 1. Dynamic Content Management
 - **Daily Posts**: A built-in CMS allowing the admin to create, edit, and publish daily articles.
+- **Learn Progress**: A journal feature to track daily learning updates (`/daily-post/learn`).
 - **Admin Dashboard**: Protected route (`/admin`) for managing content and portfolio settings.
 - **Multi-language Support**: Full English and Indonesian localization via `LanguageContext`.
 
