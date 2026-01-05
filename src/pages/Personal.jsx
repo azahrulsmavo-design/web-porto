@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useLanguage } from '../context/LanguageContext';
-import { Book, Heart, MessageCircle, Clock, Zap, Target, RefreshCw } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { Book, Heart, MessageCircle, Clock, Zap, Target, RefreshCw, Code, Calendar } from 'lucide-react';
 
 const Personal = () => {
     const { language } = useLanguage();
+    const [learnPosts, setLearnPosts] = useState([]);
+    const [loadingPosts, setLoadingPosts] = useState(true);
+
+    useEffect(() => {
+        fetchLearnPosts();
+    }, []);
+
+    const fetchLearnPosts = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('daily_posts')
+                .select('*')
+                .eq('status', 'published')
+                .eq('post_type', 'learn')
+                .order('published_at', { ascending: false });
+
+            if (error) throw error;
+            setLearnPosts(data || []);
+        } catch (error) {
+            console.error("Error fetching learn posts:", error);
+        } finally {
+            setLoadingPosts(false);
+        }
+    };
 
     const sections = {
         now: {
