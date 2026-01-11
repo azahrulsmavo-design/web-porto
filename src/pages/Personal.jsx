@@ -49,7 +49,8 @@ const Personal = () => {
         books: [
             { title: "Atomic Habits", author: "James Clear", learned: "Small habits compound over time." },
             { title: "Sapiens", author: "Yuval Noah Harari", learned: "Shared myths enable large-scale cooperation." },
-            { title: "The Psychology of Money", author: "Morgan Housel", learned: "Wealth is what you don't see." }
+            { title: "The Psychology of Money", author: "Morgan Housel", learned: "Wealth is what you don't see." },
+            { title: "Thus Spoke Zarathustra", author: "Friedrich Nietzsche", learned: "Self-overcoming and the constant journey." }
         ],
         interests: ["Coding", "Reading", "Music", "Travel", "Data Engineering"],
         contact: {
@@ -108,7 +109,7 @@ const Personal = () => {
                         </h2>
                         <div className="space-y-4">
                             {sections.books.map((book, idx) => (
-                                <div key={idx} className="group">
+                                <div key={idx} className="group p-4 rounded-lg hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
                                     <div className="flex items-baseline justify-between mb-1">
                                         <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                                             {book.title}
