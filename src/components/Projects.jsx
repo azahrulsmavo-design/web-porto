@@ -5,6 +5,25 @@ import ScrambleText from './ScrambleText';
 
 const projects = [
     {
+        title: 'Sentiment Analysis',
+        desc: 'Text classification model (Positive/Negative) using Logistic Regression & TF-IDF.',
+        tech: ['Python', 'Logistic Regression', 'TF-IDF', 'Scikit-learn'],
+        links: { code: '#' },
+        type: 'AI/ML',
+        quickStart: `To run a project, navigate to its directory and follow the internal README.md.`
+    },
+    {
+        title: 'Image Deployment',
+        desc: 'Image classification (CIFAR-10) using CNN and FastAPI.',
+        tech: ['Python', 'CNN', 'FastAPI', 'TensorFlow/PyTorch'],
+        links: { code: '#' },
+        type: 'AI/ML',
+        quickStart: `cd project2_image_deploy
+pip install -r requirements.txt
+# Run the FastAPI server
+uvicorn main:app --reload`
+    },
+    {
         title: 'AWING Body Repair & Cat',
         desc: 'Official landing page for a body repair shop in Depok. Features a modern premium design, WhatsApp conversion focus, and local SEO optimization.',
         tech: ['Next.js 16', 'React 19', 'Tailwind CSS 4', 'Framer Motion'],
@@ -36,8 +55,8 @@ const projects = [
 
 const ProjectCard = ({ project, index }) => {
     return (
-        <div className="sticky top-0 h-screen w-full bg-white border-t border-slate-200 flex items-center justify-center overflow-hidden">
-            <div className="max-w-7xl w-full px-8 grid md:grid-cols-2 gap-16 items-center">
+        <div className="sticky top-0 min-h-screen w-full bg-white border-t border-slate-200 flex items-center justify-center overflow-hidden py-24">
+            <div className="max-w-7xl w-full px-8 grid md:grid-cols-2 gap-16 items-start md:items-center">
                 {/* Left: Project Title & Type */}
                 <div>
                     <div className="font-mono text-blue-600 text-sm mb-4 font-bold uppercase tracking-wider">
@@ -64,6 +83,17 @@ const ProjectCard = ({ project, index }) => {
                     <div className="text-slate-600 text-xl leading-relaxed mb-10 font-light">
                         {project.desc}
                     </div>
+
+                    {/* Quick Start Section */}
+                    {project.quickStart && (
+                        <div className="mb-8 p-4 bg-slate-900 rounded-xl overflow-x-auto">
+                            <div className="text-[10px] font-bold uppercase text-slate-400 tracking-widest mb-3 border-b border-slate-700 pb-2">Quick Start</div>
+                            <pre className="text-sm font-mono text-green-400 whitespace-pre-wrap">
+                                {project.quickStart}
+                            </pre>
+                        </div>
+                    )}
+
                     <div className="mb-4 text-xs font-bold uppercase text-slate-400 tracking-widest">Technologies</div>
                     <ul className="flex flex-wrap gap-3">
                         {project.tech.map((tech) => (
